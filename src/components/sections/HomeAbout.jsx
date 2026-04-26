@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import './Styles/HomeAbout.css'
+import "./styles/HomeAbout.css";
 
 function useInView(threshold = 0.15) {
     const ref = useRef(null)

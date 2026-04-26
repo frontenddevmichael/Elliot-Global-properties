@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import './Styles/Servicesection.css'
+import "./styles/Servicesection.css";
 
 import service1 from "../../assets/service1.jpeg"
 import service2 from "../../assets/service2.jpeg"

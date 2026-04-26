@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import './Styles/FounderQuote.css'
+import "./styles/Founderquote.css";
 import founderImg from "../../assets/FounderPicture.jpeg"
 
 function useInView(threshold = 0.2) {
