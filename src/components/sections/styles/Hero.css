@@ -1,7 +1,4 @@
-/* ============================================================
-   ELLIOT GLOBAL PROPERTIES — HERO SECTION
-   Hero.css  (v4)
-   ============================================================ */
+
 
 /* ─── Section ────────────────────────────────────────────────────────────── */
 .hero {
@@ -329,7 +326,7 @@
 /* Primary — wider, more presence as the top stacked button */
 .hero__btn--primary {
     padding: 15px 40px;
-    border: 1.5px solid rgba(248, 247, 245, 0.55);
+    border: 1.5px solid var(--white);
     font-family: var(--font-ui);
     font-size: 14px;
     font-weight: 600;

@@ -1,7 +1,55 @@
 /* ============================================================
    ELLIOT GLOBAL PROPERTIES — UNIVERSAL NAV
-   Nav.css
+   Nav.css  (v2 — staggered entry animations added)
    ============================================================ */
+
+/* ─── Entry keyframes ────────────────────────────────────────────────────── */
+
+@keyframes navFadeSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes navFadeSlideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes navFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes navFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
 
 /* ─── Shell ──────────────────────────────────────────────────────────────── */
 
@@ -12,7 +60,7 @@
     right: 0;
     height: var(--nav-height);
     z-index: var(--z-nav);
-    padding: 2.8rem 1rem;
+    padding: 2.8rem 1.5rem;
     transition:
         background-color 0.4s var(--ease-premium),
         backdrop-filter 0.4s var(--ease-premium),
@@ -50,22 +98,24 @@
 
 .nav__logo {
     margin-top: .8rem;
+    /* Entry: slides in from the left — first element, leads the sequence */
+    animation: navFadeSlideLeft 0.75s var(--ease-premium) 0.05s both;
 }
 
-.nav__logo-img{
+.nav__logo-img {
     width: 15rem;
 }
 
 .nav__logo:hover {
     opacity: 0.8;
 }
+
 /* ─── Desktop links ──────────────────────────────────────────────────────── */
 
 .nav__links {
     display: flex;
     align-items: center;
     gap: clamp(28px, 3.5vw, 48px);
-    /* Center in remaining space */
     flex: 1;
     justify-content: center;
 }
@@ -81,6 +131,30 @@
     color: rgba(248, 247, 245, 0.75);
     padding-bottom: 3px;
     transition: color 0.25s ease;
+
+    /* Entry: each link fades down, staggered via nth-child */
+    animation: navFadeSlideDown 0.55s var(--ease-premium) both;
+}
+
+/* Stagger each link independently — clean cascade feel */
+.nav__links .nav__link:nth-child(1) {
+    animation-delay: 0.15s;
+}
+
+.nav__links .nav__link:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.nav__links .nav__link:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.nav__links .nav__link:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.nav__links .nav__link:nth-child(5) {
+    animation-delay: 0.5s;
 }
 
 .nav__link::after {
@@ -140,32 +214,30 @@
     align-items: center;
     gap: 6px;
     font-family: var(--font-ui);
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     text-decoration: none;
     color: var(--signal);
     background-color: var(--white);
-    padding: 8px 18px;
+    padding: 8px 20px;
     border: 2px solid transparent;
-    box-shadow: 2px 2px transparent;
     transition: all .3s ease;
     overflow: hidden;
+    animation: navFadeUp 0.7s var(--ease-premium) 0.52s both;
 }
-
 
 .nav--solid .nav__cta {
     border: 2px solid var(--signal);
+;
     box-shadow: 4px 4px var(--signal);
 }
 
-.nav
-
-
 .nav__cta:hover {
-    color: var(--white);
-    border-color: var(--signal);
+    color: var(--canvas);
+    background-color: var(--signal);
+    box-shadow:none;
 }
 
 .nav__cta:hover::before {
@@ -179,6 +251,7 @@
     background-color: var(--signal);
     flex-shrink: 0;
     transition: background-color 0.25s ease;
+    display: none;
 }
 
 .nav__cta:hover .nav__cta-dot {
@@ -189,7 +262,6 @@
 
 .nav__hamburger {
     display: none;
-    /* hidden desktop */
     align-items: center;
     justify-content: center;
     width: 36px;
@@ -199,6 +271,9 @@
     padding: 0;
     cursor: none;
     flex-shrink: 0;
+
+    /* Entry: matches the CTA delay on mobile — they're the same region */
+    animation: navFadeIn 0.5s ease 0.35s both;
 }
 
 .nav__hamburger-icon {
@@ -393,6 +468,15 @@
 /* ─── Reduced motion ─────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
+
+    .nav__logo,
+    .nav__link,
+    .nav__cta,
+    .nav__hamburger {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 
     .nav,
     .nav__link::after,

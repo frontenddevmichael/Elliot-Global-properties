@@ -73,7 +73,7 @@ export default function HomeAbout() {
                             Who We Are
                         </span>
                         <h2 className="ha__headline">
-                            Nigeria's most trusted
+                            One of Nigeria's most trusted
                             <br />property partner.
                         </h2>
                     </div>

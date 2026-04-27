@@ -342,8 +342,6 @@
         display: flex;
     }
 
-    /* Carousel: break out of container to go edge-to-edge,
-     then use padding-inline to give proper breathing room on both sides */
     .stats__grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -351,17 +349,9 @@
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         -ms-overflow-style: none;
-
-        /* Break out of the .container max-width restriction */
         margin-inline: calc(-1 * var(--container-padding));
-
-        /* Left padding: first card starts with breathing room, not flush to edge */
         padding-left: clamp(20px, 6vw, 32px);
-
-        /* Right padding: last card has room at the end */
         padding-right: clamp(20px, 6vw, 32px);
-
-        /* Small gap between cards */
         gap: 12px;
     }
 
@@ -370,20 +360,13 @@
     }
 
     .stats__cell {
-        /* 76vw — shows a sliver of next card so user knows there's more */
         flex: 0 0 76vw;
         scroll-snap-align: start;
         border-right: none;
         border-bottom: none;
-
-        /* Card-style padding — feels like an individual item, not a grid cell */
         padding: clamp(24px, 6vw, 36px) clamp(20px, 5vw, 28px);
-
-        /* Subtle card border so each cell reads as a standalone unit */
         border: 1px solid rgba(209, 205, 198, 0.1);
         border-radius: 2px;
-
-        /* All cells get the red top accent on mobile */
         overflow: hidden;
     }
 
