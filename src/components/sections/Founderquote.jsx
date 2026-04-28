@@ -99,7 +99,7 @@ export default function FounderQuote() {
                     <blockquote className="fq__quote">
                         <AnimatedQuote
                             visible={visible}
-                            text="To create flexible access to luxury home ownership for all bracket of earning in Nigeria and Africa at large."
+                            text="To create flexible access to luxury home ownership for all earning brackets in Nigeria and Africa at large."
                         />
                     </blockquote>
 
