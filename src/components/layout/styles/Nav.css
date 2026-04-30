@@ -98,7 +98,6 @@
 
 .nav__logo {
     margin-top: .8rem;
-    /* Entry: slides in from the left — first element, leads the sequence */
     animation: navFadeSlideLeft 0.75s var(--ease-premium) 0.05s both;
 }
 
@@ -322,7 +321,6 @@
     width: 22px;
 }
 
-/* Solid state — hamburger bars darken */
 .nav--solid .nav__hamburger-icon span {
     background-color: var(--ink);
 }
@@ -346,9 +344,10 @@
     pointer-events: all;
     visibility: visible;
     transition-delay: 0s;
+    background-color: var(--signal);
 }
 
-/* Animated dark background fill */
+
 .nav__mobile-bg {
     position: absolute;
     inset: 0;

@@ -88,12 +88,6 @@ export default function CTASection() {
                         <em>starts here.</em>
                     </h2>
 
-                    <p className={`cta-section__body ${visible ? 'cta-section__body--in' : ''}`}>
-                        Whether you're buying your first home, growing a portfolio,
-                        or seeking expert advisory — our team is ready. No generic
-                        listings. No pressure. Just the right property for the right person.
-                    </p>
-
                 </div>
 
                 {/* ── Right: CTA card ───────────────────────────────────────── */}
