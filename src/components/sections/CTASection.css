@@ -74,7 +74,7 @@
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    font-family: var(--font-mono);
+    font-family: var(--font-ui);
     font-size: 16px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -129,7 +129,7 @@
     font-family: var(--font-body);
     font-size: clamp(1.3rem, 1.5vw, 1.3rem);
     line-height: var(--leading-relaxed);
-    color: rgba(248, 247, 245, 0.45);
+    color: var(--white);
     max-width: 460px;
     margin-bottom: clamp(32px, 5vw, 52px);
     opacity: 0;
@@ -192,7 +192,7 @@
 /* ─── Card (right) ───────────────────────────────────────────────────────── */
 .cta-section__card {
     position: relative;
-    background: rgba(248, 247, 245, 0.035);
+    background:var(--void);
     border: 1px solid rgba(209, 205, 198, 0.1);
     overflow: hidden;
     opacity: 0;
@@ -206,15 +206,7 @@
     transform: none;
 }
 
-/* Red top accent bar */
-.cta-section__card-accent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(to right, var(--signal), rgba(192, 0, 26, 0.2));
-}
+
 
 .cta-section__card-inner {
     padding: clamp(32px, 5vw, 52px);
@@ -224,7 +216,7 @@
 }
 
 .cta-section__card-label {
-    font-family: var(--font-mono);
+    font-family: var(--font-ui);
     font-size: 15px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -344,10 +336,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: var(--font-mono);
+    font-family: var(--font-ui);
     font-size: 15px;
     letter-spacing: 0.1em;
-    color: rgba(248, 247, 245, 0.22);
+    color: var(--signal-muted);
 }
 
 /* Coordinate corner label */
@@ -360,6 +352,7 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: rgba(248, 247, 245, 0.1);
+    display: none;
 }
 
 /* ─── Bottom draw-in rule ─────────────────────────────────────────────────── */

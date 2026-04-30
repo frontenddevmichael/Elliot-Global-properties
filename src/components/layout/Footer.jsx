@@ -78,7 +78,7 @@ const SOCIALS = [
 
 // ─── Animated large text ticker ───────────────────────────────────────────────
 function Marquee() {
-  const text = 'ELLIOT GLOBAL · PROPERTY · ELEVATED · LAGOS · NIGERIA · EST 2012 · '
+  const text = 'ELLIOT GLOBAL · PROPERTY · ELEVATED · LAGOS · NIGERIA · EST 2022 · '
   return (
     <div className="footer__marquee" aria-hidden="true">
       <div className="footer__marquee-track">
@@ -246,7 +246,7 @@ export default function Footer() {
 
             <p className="footer__tagline">
               Placing people in the right properties
-              since 2012 — with precision, integrity,
+              since 2022 — with precision, integrity,
               and lasting purpose.
             </p>
 
@@ -321,23 +321,6 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {/* Col 4: Contact + CTA */}
-          <div
-            className={`footer__contact-col ${visible ? 'footer__contact-col--in' : ''}`}
-            style={{ transitionDelay: '0.3s' }}
-          >
-            <FooterCTA visible={visible} />
-
-            {/* Office address */}
-            <address className="footer__address">
-              <span className="footer__address-coord">6.5244°N · 3.3792°E</span>
-              <span className="footer__address-line">Victoria Island, Lagos</span>
-              <span className="footer__address-line">Federal Republic of Nigeria</span>
-              <a href="mailto:hello@elliotglobal.ng" className="footer__email">
-                hello@elliotglobal.ng
-              </a>
-            </address>
-          </div>
 
         </div>
       </div>

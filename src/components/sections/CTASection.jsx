@@ -94,29 +94,6 @@ export default function CTASection() {
                         listings. No pressure. Just the right property for the right person.
                     </p>
 
-                    {/* ── Mini proof stats ─────────────────────────────────────── */}
-                    <div className={`cta-section__proof ${visible ? 'cta-section__proof--in' : ''}`}>
-                        <div className="cta-section__proof-item">
-                            <span className="cta-section__proof-value">
-                                <Counter target={500} suffix="+" triggered={visible} />
-                            </span>
-                            <span className="cta-section__proof-label">Happy Clients</span>
-                        </div>
-                        <div className="cta-section__proof-divider" aria-hidden="true" />
-                        <div className="cta-section__proof-item">
-                            <span className="cta-section__proof-value">
-                                <Counter target={12} suffix="yr" triggered={visible} />
-                            </span>
-                            <span className="cta-section__proof-label">Market Experience</span>
-                        </div>
-                        <div className="cta-section__proof-divider" aria-hidden="true" />
-                        <div className="cta-section__proof-item">
-                            <span className="cta-section__proof-value">
-                                <Counter target={4} suffix="" triggered={visible} />
-                            </span>
-                            <span className="cta-section__proof-label">Nigerian Cities</span>
-                        </div>
-                    </div>
                 </div>
 
                 {/* ── Right: CTA card ───────────────────────────────────────── */}

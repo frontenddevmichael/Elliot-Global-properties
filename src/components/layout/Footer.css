@@ -1,8 +1,7 @@
 
 .footer {
     position: relative;
-    background-color: #000000;
-    padding: 0% 1rem;
+    background-color: var(--void);
     overflow: hidden;
     isolation: isolate;
 }
@@ -19,7 +18,6 @@
     opacity: 0.8;
 }
 
-/* ─── Grain overlay ──────────────────────────────────────────────────────── */
 .footer__grain {
     position: absolute;
     inset: 0;
@@ -30,14 +28,15 @@
     mix-blend-mode: overlay;
 }
 
-/* ─── Ticker / Marquee ───────────────────────────────────────────────────── */
+/* ─── Marquee ticker ─────────────────────────────────────────────────────── */
 .footer__ticker-wrap {
     position: relative;
     z-index: 2;
-    border-bottom: 1px solid rgba(192, 0, 26, 0.2);
+    border: 1.5px solid var(--signal);
+    border-left: none;
+    border-right: none;
     overflow: hidden;
-    padding-block: 14px;
-    /* Red left-edge accent */
+    padding-block: 18px;
     border-left: 3px solid var(--signal);
 }
 
@@ -48,23 +47,17 @@
 .footer__marquee-track {
     display: flex;
     white-space: nowrap;
-    animation: marqueeScroll 28s linear infinite;
-    gap: 0;
+    animation: marqueeScroll 8s linear infinite;
 }
 
 .footer__marquee-track span {
     font-family: var(--font-mono);
-    font-size: clamp(14px, 1.4vw, 16px);
-    letter-spacing: 0.28em;
+    font-size: clamp(12px, 1.3vw, 14px);
+    /* was 10–13px — bumped */
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: rgba(248, 247, 245, 0.18);
-    padding-right: 0;
+    color: rgba(248, 247, 245, 0.805);
     flex-shrink: 0;
-}
-
-/* Punctuation dots in red */
-.footer__marquee-track span::after {
-    content: '';
 }
 
 @keyframes marqueeScroll {
@@ -99,18 +92,22 @@
     line-height: 1;
 }
 
-/* ─── Main content area ──────────────────────────────────────────────────── */
+/* ─── Main grid ──────────────────────────────────────────────────────────── */
 .footer__main {
     position: relative;
     z-index: 2;
     padding-block: clamp(64px, 10vw, 112px);
+    padding: 2rem;
 }
 
 .footer__main-inner {
     display: grid;
-    grid-template-columns: 1.8fr 0.8fr 0.9fr 1.4fr;
+    grid-template-columns: 1.8fr 0.85fr 0.95fr 1.4fr;
     gap: clamp(32px, 5vw, 72px);
     align-items: start;
+    background-color: rgba(248, 248, 248, 0.057);
+    padding: 2rem;
+    border-radius: 1rem;
 }
 
 /* ─── Brand column ───────────────────────────────────────────────────────── */
@@ -125,7 +122,7 @@
     transform: none;
 }
 
-/* ─── Big wordmark ───────────────────────────────────────────────────────── */
+/* ─── Wordmark ───────────────────────────────────────────────────────────── */
 .footer__wordmark {
     margin-bottom: clamp(20px, 3vw, 32px);
 }
@@ -134,7 +131,7 @@
     display: flex;
     gap: 0;
     overflow: hidden;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .footer__wordmark-letter {
@@ -145,12 +142,9 @@
     color: var(--canvas);
     line-height: 1;
     display: block;
-
     opacity: 0;
     transform: translateY(40px) skewY(4deg);
-    transition:
-        opacity 0.6s var(--ease-premium),
-        transform 0.6s var(--ease-premium);
+    transition: opacity 0.6s var(--ease-premium), transform 0.6s var(--ease-premium);
 }
 
 .footer__wordmark-letter--in {
@@ -158,7 +152,6 @@
     transform: translateY(0) skewY(0deg);
 }
 
-/* Red dot accent after wordmark */
 .footer__wordmark-letter:last-child::after {
     content: '.';
     color: var(--signal);
@@ -166,12 +159,12 @@
 
 .footer__wordmark-sub {
     font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.28em;
+    font-size: 13px;
+    /* was 10px — too small */
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(248, 247, 245, 0.25);
+    color: rgba(248, 247, 245, 0.28);
     padding-left: 2px;
-
     opacity: 0;
     transform: translateX(-8px);
     transition: opacity 0.6s var(--ease-premium) 0.38s,
@@ -186,35 +179,37 @@
 /* ─── Tagline ────────────────────────────────────────────────────────────── */
 .footer__tagline {
     font-family: var(--font-body);
-    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
-    line-height: 1.75;
-    color: rgba(248, 247, 245, 0.32);
-    max-width: 280px;
-    margin-bottom: clamp(20px, 3vw, 32px);
+    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+    /* was 0.85–0.95rem */
+    line-height: 1.8;
+    color: rgba(248, 247, 245, 0.35);
+    max-width: 300px;
+    margin-bottom: clamp(24px, 3vw, 36px);
 }
 
-/* ─── Social icons ───────────────────────────────────────────────────────── */
+/* ─── Socials ────────────────────────────────────────────────────────────── */
 .footer__socials {
     display: flex;
     gap: 12px;
-    margin-bottom: clamp(20px, 3vw, 32px);
+    margin-bottom: clamp(24px, 3vw, 36px);
 }
 
 .footer__social {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
+    /* was 38×38 — slightly bigger */
     border: 1px solid rgba(209, 205, 198, 0.12);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(248, 247, 245, 0.35);
+    color: rgba(248, 247, 245, 0.584);
     text-decoration: none;
     position: relative;
     overflow: hidden;
     transition: color 0.25s ease, border-color 0.25s ease;
+    border-radius: .4rem;
 }
 
-/* Fill wipe on hover */
 .footer__social::before {
     content: '';
     position: absolute;
@@ -224,18 +219,19 @@
     transform-origin: bottom;
     transition: transform 0.3s var(--ease-premium);
     z-index: -1;
+
 }
 
 .footer__social:hover {
     color: var(--white);
-    border-color: var(--signal);
+    border: none;
 }
 
 .footer__social:hover::before {
     transform: scaleY(1);
 }
 
-/* ─── Survey cross decorations ───────────────────────────────────────────── */
+/* ─── Survey crosses ─────────────────────────────────────────────────────── */
 .footer__crosses {
     display: flex;
     align-items: center;
@@ -245,9 +241,7 @@
 .footer__cross {
     opacity: 0;
     transform: scale(0.5) rotate(45deg);
-    transition:
-        opacity 0.5s var(--ease-premium),
-        transform 0.5s var(--ease-spring);
+    transition: opacity 0.5s var(--ease-premium), transform 0.5s var(--ease-spring);
 }
 
 .footer__cross--in {
@@ -255,7 +249,6 @@
     transform: scale(1) rotate(0deg);
 }
 
-/* Continuous slow spin on the largest cross */
 .footer__cross:first-child.footer__cross--in {
     animation: crossSpin 20s linear infinite;
 }
@@ -270,7 +263,7 @@
     }
 }
 
-/* ─── Nav columns ────────────────────────────────────────────────────────── */
+/* ─── Nav column ─────────────────────────────────────────────────────────── */
 .footer__nav-col {
     opacity: 0;
     transform: translateY(20px);
@@ -282,51 +275,51 @@
     transform: none;
 }
 
+/* Column heading — was 10px, now 13px */
 .footer__col-heading {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.24em;
+    font-family: var(--font-ui);
+    font-size: 16px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--signal);
-    margin-bottom: clamp(16px, 2.5vw, 24px);
+    margin-bottom: clamp(18px, 2.8vw, 28px);
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
 }
 
-/* Red underline on heading */
 .footer__col-heading::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 20px;
+    width: 24px;
     height: 1px;
-    background-color: rgba(192, 0, 26, 0.4);
+    background-color: rgba(192, 0, 26, 0.45);
 }
 
 .footer__link-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
+    /* was 2px — more breathing room */
 }
+
 
 .footer__link {
     display: flex;
     align-items: center;
     gap: 10px;
     font-family: var(--font-ui);
-    font-size: clamp(13px, 1.1vw, 14px);
+    font-size: clamp(15px, 1.3vw, 16px);
     font-weight: 400;
-    color: rgba(248, 247, 245, 0.4);
+    color: rgba(248, 247, 245, 0.45);
     text-decoration: none;
-    padding: 6px 0;
+    padding: 9px 0;
+    /* was 6px — more tap area */
     border-bottom: 1px solid transparent;
-    transition: color 0.22s ease, border-color 0.22s ease;
-    position: relative;
     opacity: 0;
     transform: translateX(-8px);
-    /* Individual animation handled via transition-delay in JSX */
     transition:
         color 0.22s ease,
         border-color 0.22s ease,
@@ -341,11 +334,11 @@
 
 .footer__link:hover {
     color: var(--canvas);
-    border-color: rgba(192, 0, 26, 0.25);
+    border-color: rgba(192, 0, 26, 0.2);
 }
 
 .footer__link-arrow {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--signal);
     opacity: 0;
     transform: translateX(-4px);
@@ -358,7 +351,7 @@
     transform: none;
 }
 
-/* ─── Contact / CTA column ───────────────────────────────────────────────── */
+/* ─── Contact column ─────────────────────────────────────────────────────── */
 .footer__contact-col {
     opacity: 0;
     transform: translateY(20px);
@@ -370,7 +363,7 @@
     transform: none;
 }
 
-/* ─── Footer CTA block ───────────────────────────────────────────────────── */
+/* ─── CTA block ──────────────────────────────────────────────────────────── */
 .footer__cta {
     margin-bottom: clamp(28px, 4vw, 44px);
     opacity: 0;
@@ -384,23 +377,25 @@
     transform: none;
 }
 
+/* Label — was 10px, now 13px */
 .footer__cta-label {
     font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.22em;
+    font-size: 13px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--signal);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .footer__cta-heading {
     font-family: var(--font-display);
-    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    /* slightly bumped */
     font-weight: 300;
     line-height: 1.2;
     letter-spacing: -0.02em;
     color: var(--canvas);
-    margin-bottom: clamp(16px, 2.5vw, 24px);
+    margin-bottom: clamp(18px, 2.5vw, 28px);
 }
 
 .footer__cta-heading em {
@@ -408,14 +403,12 @@
     color: var(--signal);
 }
 
-/* Email input */
-.footer__form {}
-
+/* Input */
 .footer__input-wrap {
     display: flex;
     align-items: stretch;
     border: 1px solid rgba(209, 205, 198, 0.15);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     transition: border-color 0.25s ease;
     position: relative;
     overflow: hidden;
@@ -448,29 +441,30 @@
     border: none;
     outline: none;
     font-family: var(--font-ui);
-    font-size: 13px;
+    font-size: 15px;
+    /* was 13px */
     color: var(--canvas);
-    padding: 13px 16px;
+    padding: 14px 18px;
     letter-spacing: 0.04em;
 }
 
 .footer__input::placeholder {
-    color: rgba(248, 247, 245, 0.2);
+    color: rgba(248, 247, 245, 0.22);
 }
 
 .footer__input-btn {
     background: transparent;
     border: none;
     border-left: 1px solid rgba(209, 205, 198, 0.12);
-    padding: 0 16px;
+    padding: 0 18px;
     color: rgba(248, 247, 245, 0.4);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.25s ease, color 0.25s ease;
     position: relative;
     overflow: hidden;
+    transition: color 0.25s ease;
 }
 
 .footer__input-btn::before {
@@ -493,15 +487,16 @@
     transform: scaleX(1);
 }
 
+/* Note — was 10px, now 12px */
 .footer__form-note {
     font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: rgba(248, 247, 245, 0.2);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: rgba(248, 247, 245, 0.22);
 }
 
 .footer__form-note a {
-    color: rgba(192, 0, 26, 0.6);
+    color: rgba(192, 0, 26, 0.65);
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -510,53 +505,56 @@
     color: var(--signal);
 }
 
-/* Success state */
 .footer__form-success {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 14px 16px;
+    padding: 16px 18px;
     border: 1px solid rgba(192, 0, 26, 0.25);
     background: rgba(192, 0, 26, 0.06);
 }
 
 .footer__form-success p {
     font-family: var(--font-ui);
-    font-size: 13px;
-    color: rgba(248, 247, 245, 0.55);
-    letter-spacing: 0.04em;
+    font-size: 15px;
+    /* was 13px */
+    color: rgba(248, 247, 245, 0.6);
+    letter-spacing: 0.03em;
 }
 
 /* ─── Address ────────────────────────────────────────────────────────────── */
 .footer__address {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     font-style: normal;
     border-top: 1px solid rgba(209, 205, 198, 0.08);
-    padding-top: clamp(16px, 2.5vw, 24px);
+    padding-top: clamp(18px, 2.5vw, 26px);
 }
 
+/* Coord label — was 10px, now 12px */
 .footer__address-coord {
     font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    color: rgba(192, 0, 26, 0.5);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: rgba(192, 0, 26, 0.55);
     margin-bottom: 6px;
 }
 
+/* Address lines — was 13px, now 15px */
 .footer__address-line {
     font-family: var(--font-ui);
-    font-size: 13px;
-    color: rgba(248, 247, 245, 0.3);
-    letter-spacing: 0.04em;
+    font-size: 15px;
+    color: rgba(248, 247, 245, 0.32);
+    letter-spacing: 0.03em;
 }
 
+/* Email — was 12px, now 14px */
 .footer__email {
     font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    color: rgba(248, 247, 245, 0.35);
+    font-size: 14px;
+    letter-spacing: 0.07em;
+    color: rgba(248, 247, 245, 0.4);
     text-decoration: none;
     margin-top: 6px;
     transition: color 0.22s ease;
@@ -590,52 +588,57 @@
     position: relative;
     z-index: 2;
     border-top: 1px solid rgba(209, 205, 198, 0.08);
-    padding-block: clamp(16px, 2.5vh, 24px);
-    /* Red left accent on entire bottom bar */
     border-left: 3px solid rgba(192, 0, 26, 0.3);
+    padding-block: clamp(18px, 2.5vh, 26px);
 }
 
 .footer__bottom-inner {
     display: flex;
     align-items: center;
+    padding:0%  5rem;
     justify-content: space-between;
     gap: clamp(12px, 2vw, 24px);
     flex-wrap: wrap;
 }
 
 .footer__copy {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: rgba(248, 247, 245, 0.18);
+    font-family: var(--font-body);
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: rgba(248, 247, 245, 0.812);
 }
 
 .footer__copy-sep {
     opacity: 0.4;
 }
 
+/* Coord — was 9px, now 11px */
 .footer__bottom-coord {
     font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.2em;
+    font-size: 11px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(248, 247, 245, 0.1);
+    color: rgba(248, 247, 245, 0.12);
+    display: none;
 }
 
+/* Legal — was 10px, now 12px */
 .footer__legal {
     display: flex;
     align-items: center;
     gap: 10px;
     font-family: var(--font-mono);
-    font-size: 10px;
-    color: rgba(248, 247, 245, 0.2);
+    font-size: 12px;
+    color: rgba(248, 247, 245, 0.22);
 }
 
 .footer__legal-link {
-    color: rgba(248, 247, 245, 0.2);
+    color: rgba(248, 247, 245, 0.767);
+    font-size: .9rem;
     text-decoration: none;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     transition: color 0.2s ease;
+    display: none;
 }
 
 .footer__legal-link:hover {
@@ -646,10 +649,9 @@
 @media (max-width: 1024px) and (min-width: 641px) {
     .footer__main-inner {
         grid-template-columns: 1fr 1fr;
-        gap: clamp(32px, 5vw, 52px);
+        gap: clamp(36px, 5vw, 56px);
     }
 
-    /* Brand spans full width on tablet */
     .footer__brand {
         grid-column: 1 / -1;
     }
@@ -665,42 +667,33 @@
     .footer__bottom-coord {
         display: none;
     }
+
+    .footer__tagline {
+        max-width: 520px;
+    }
 }
 
 /* ─── MOBILE ≤640px ──────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
     .footer__main-inner {
         grid-template-columns: 1fr;
-        gap: clamp(36px, 8vw, 52px);
+        gap: clamp(40px, 9vw, 56px);
     }
 
-    /* Wordmark: big and bold, first thing seen on mobile */
     .footer__wordmark-letter {
         font-size: clamp(2.8rem, 13vw, 4.2rem);
     }
 
-    /* Brand section: full layout */
     .footer__tagline {
         max-width: 100%;
+        font-size: 1rem;
     }
 
-    /* Nav columns sit side by side on mobile */
-    .footer__nav-col, .footer__contact-col {
-        width: 100%;
-    }
-
-    /* On mobile, nav cols go side by side */
-    .footer__main-inner>.footer__nav-col:nth-child(2),
-    .footer__main-inner>.footer__nav-col:nth-child(3) {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-
-    /* Stack nav cols 2+3 into a row */
+    /* Nav cols side by side on mobile */
     .footer__nav-cols-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 24px;
+        gap: 28px;
     }
 
     .footer__bg-word {
@@ -708,7 +701,6 @@
         bottom: 20px;
     }
 
-    /* Bottom bar stacks on mobile */
     .footer__bottom-inner {
         flex-direction: column;
         align-items: flex-start;
@@ -719,24 +711,27 @@
         display: none;
     }
 
-    .footer__copy {
-        font-size: 10px;
-    }
-
-    /* Marquee smaller on mobile */
     .footer__marquee-track span {
-        font-size: 10px;
-        letter-spacing: 0.2em;
+        font-size: 11px;
+        letter-spacing: 0.18em;
     }
 
-    /* CTA heading more compact */
     .footer__cta-heading {
-        font-size: clamp(1.3rem, 6vw, 1.7rem);
+        font-size: clamp(1.35rem, 6.5vw, 1.8rem);
     }
 
-    /* Cross decorations hidden on small screens */
     .footer__crosses {
         display: none;
+    }
+
+    /* Slightly smaller links on mobile — still readable */
+    .footer__link {
+        font-size: 15px;
+        padding: 10px 0;
+    }
+
+    .footer__col-heading {
+        font-size: 12px;
     }
 }
 
@@ -751,8 +746,12 @@
     }
 
     .footer__social {
-        width: 34px;
-        height: 34px;
+        width: 38px;
+        height: 38px;
+    }
+
+    .footer__link {
+        font-size: 14px;
     }
 }
 
