@@ -1,0 +1,776 @@
+
+.footer {
+    position: relative;
+    background-color: #000000;
+    padding: 0% 1rem;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* ─── Topographic SVG background ─────────────────────────────────────────── */
+.footer__topo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.8;
+}
+
+/* ─── Grain overlay ──────────────────────────────────────────────────────── */
+.footer__grain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.032;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+/* ─── Ticker / Marquee ───────────────────────────────────────────────────── */
+.footer__ticker-wrap {
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid rgba(192, 0, 26, 0.2);
+    overflow: hidden;
+    padding-block: 14px;
+    /* Red left-edge accent */
+    border-left: 3px solid var(--signal);
+}
+
+.footer__marquee {
+    overflow: hidden;
+}
+
+.footer__marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marqueeScroll 28s linear infinite;
+    gap: 0;
+}
+
+.footer__marquee-track span {
+    font-family: var(--font-mono);
+    font-size: clamp(14px, 1.4vw, 16px);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(248, 247, 245, 0.18);
+    padding-right: 0;
+    flex-shrink: 0;
+}
+
+/* Punctuation dots in red */
+.footer__marquee-track span::after {
+    content: '';
+}
+
+@keyframes marqueeScroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-33.333%);
+    }
+}
+
+.footer__marquee:hover .footer__marquee-track {
+    animation-play-state: paused;
+}
+
+/* ─── Giant background watermark ─────────────────────────────────────────── */
+.footer__bg-word {
+    position: absolute;
+    bottom: clamp(40px, 8vh, 80px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-display);
+    font-size: clamp(8rem, 22vw, 22rem);
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    color: rgba(248, 247, 245, 0.022);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    z-index: 1;
+    line-height: 1;
+}
+
+/* ─── Main content area ──────────────────────────────────────────────────── */
+.footer__main {
+    position: relative;
+    z-index: 2;
+    padding-block: clamp(64px, 10vw, 112px);
+}
+
+.footer__main-inner {
+    display: grid;
+    grid-template-columns: 1.8fr 0.8fr 0.9fr 1.4fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+}
+
+/* ─── Brand column ───────────────────────────────────────────────────────── */
+.footer__brand {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s var(--ease-premium), transform 0.8s var(--ease-premium);
+}
+
+.footer__brand--in {
+    opacity: 1;
+    transform: none;
+}
+
+/* ─── Big wordmark ───────────────────────────────────────────────────────── */
+.footer__wordmark {
+    margin-bottom: clamp(20px, 3vw, 32px);
+}
+
+.footer__wordmark-top {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.footer__wordmark-letter {
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 6vw, 5.5rem);
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    color: var(--canvas);
+    line-height: 1;
+    display: block;
+
+    opacity: 0;
+    transform: translateY(40px) skewY(4deg);
+    transition:
+        opacity 0.6s var(--ease-premium),
+        transform 0.6s var(--ease-premium);
+}
+
+.footer__wordmark-letter--in {
+    opacity: 1;
+    transform: translateY(0) skewY(0deg);
+}
+
+/* Red dot accent after wordmark */
+.footer__wordmark-letter:last-child::after {
+    content: '.';
+    color: var(--signal);
+}
+
+.footer__wordmark-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(248, 247, 245, 0.25);
+    padding-left: 2px;
+
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.6s var(--ease-premium) 0.38s,
+        transform 0.6s var(--ease-premium) 0.38s;
+}
+
+.footer__wordmark-sub--in {
+    opacity: 1;
+    transform: none;
+}
+
+/* ─── Tagline ────────────────────────────────────────────────────────────── */
+.footer__tagline {
+    font-family: var(--font-body);
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+    line-height: 1.75;
+    color: rgba(248, 247, 245, 0.32);
+    max-width: 280px;
+    margin-bottom: clamp(20px, 3vw, 32px);
+}
+
+/* ─── Social icons ───────────────────────────────────────────────────────── */
+.footer__socials {
+    display: flex;
+    gap: 12px;
+    margin-bottom: clamp(20px, 3vw, 32px);
+}
+
+.footer__social {
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(209, 205, 198, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(248, 247, 245, 0.35);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Fill wipe on hover */
+.footer__social::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--signal);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s var(--ease-premium);
+    z-index: -1;
+}
+
+.footer__social:hover {
+    color: var(--white);
+    border-color: var(--signal);
+}
+
+.footer__social:hover::before {
+    transform: scaleY(1);
+}
+
+/* ─── Survey cross decorations ───────────────────────────────────────────── */
+.footer__crosses {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer__cross {
+    opacity: 0;
+    transform: scale(0.5) rotate(45deg);
+    transition:
+        opacity 0.5s var(--ease-premium),
+        transform 0.5s var(--ease-spring);
+}
+
+.footer__cross--in {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Continuous slow spin on the largest cross */
+.footer__cross:first-child.footer__cross--in {
+    animation: crossSpin 20s linear infinite;
+}
+
+@keyframes crossSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ─── Nav columns ────────────────────────────────────────────────────────── */
+.footer__nav-col {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s var(--ease-premium), transform 0.7s var(--ease-premium);
+}
+
+.footer__nav-col--in {
+    opacity: 1;
+    transform: none;
+}
+
+.footer__col-heading {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin-bottom: clamp(16px, 2.5vw, 24px);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* Red underline on heading */
+.footer__col-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 20px;
+    height: 1px;
+    background-color: rgba(192, 0, 26, 0.4);
+}
+
+.footer__link-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.footer__link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-ui);
+    font-size: clamp(13px, 1.1vw, 14px);
+    font-weight: 400;
+    color: rgba(248, 247, 245, 0.4);
+    text-decoration: none;
+    padding: 6px 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.22s ease, border-color 0.22s ease;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-8px);
+    /* Individual animation handled via transition-delay in JSX */
+    transition:
+        color 0.22s ease,
+        border-color 0.22s ease,
+        opacity 0.5s var(--ease-premium),
+        transform 0.5s var(--ease-premium);
+}
+
+.footer__nav-col--in .footer__link {
+    opacity: 1;
+    transform: none;
+}
+
+.footer__link:hover {
+    color: var(--canvas);
+    border-color: rgba(192, 0, 26, 0.25);
+}
+
+.footer__link-arrow {
+    font-size: 11px;
+    color: var(--signal);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.footer__link:hover .footer__link-arrow {
+    opacity: 1;
+    transform: none;
+}
+
+/* ─── Contact / CTA column ───────────────────────────────────────────────── */
+.footer__contact-col {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s var(--ease-premium), transform 0.7s var(--ease-premium);
+}
+
+.footer__contact-col--in {
+    opacity: 1;
+    transform: none;
+}
+
+/* ─── Footer CTA block ───────────────────────────────────────────────────── */
+.footer__cta {
+    margin-bottom: clamp(28px, 4vw, 44px);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s var(--ease-premium) 0.3s,
+        transform 0.7s var(--ease-premium) 0.3s;
+}
+
+.footer__cta--in {
+    opacity: 1;
+    transform: none;
+}
+
+.footer__cta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin-bottom: 10px;
+}
+
+.footer__cta-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--canvas);
+    margin-bottom: clamp(16px, 2.5vw, 24px);
+}
+
+.footer__cta-heading em {
+    font-style: italic;
+    color: var(--signal);
+}
+
+/* Email input */
+.footer__form {}
+
+.footer__input-wrap {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid rgba(209, 205, 198, 0.15);
+    margin-bottom: 10px;
+    transition: border-color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer__input-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--signal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-premium);
+}
+
+.footer__input-wrap--focused {
+    border-color: rgba(192, 0, 26, 0.4);
+}
+
+.footer__input-wrap--focused::after {
+    transform: scaleX(1);
+}
+
+.footer__input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--canvas);
+    padding: 13px 16px;
+    letter-spacing: 0.04em;
+}
+
+.footer__input::placeholder {
+    color: rgba(248, 247, 245, 0.2);
+}
+
+.footer__input-btn {
+    background: transparent;
+    border: none;
+    border-left: 1px solid rgba(209, 205, 198, 0.12);
+    padding: 0 16px;
+    color: rgba(248, 247, 245, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer__input-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--signal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-premium);
+    z-index: -1;
+}
+
+.footer__input-btn:hover {
+    color: var(--white);
+    border-color: var(--signal);
+}
+
+.footer__input-btn:hover::before {
+    transform: scaleX(1);
+}
+
+.footer__form-note {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(248, 247, 245, 0.2);
+}
+
+.footer__form-note a {
+    color: rgba(192, 0, 26, 0.6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer__form-note a:hover {
+    color: var(--signal);
+}
+
+/* Success state */
+.footer__form-success {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid rgba(192, 0, 26, 0.25);
+    background: rgba(192, 0, 26, 0.06);
+}
+
+.footer__form-success p {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: rgba(248, 247, 245, 0.55);
+    letter-spacing: 0.04em;
+}
+
+/* ─── Address ────────────────────────────────────────────────────────────── */
+.footer__address {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-style: normal;
+    border-top: 1px solid rgba(209, 205, 198, 0.08);
+    padding-top: clamp(16px, 2.5vw, 24px);
+}
+
+.footer__address-coord {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: rgba(192, 0, 26, 0.5);
+    margin-bottom: 6px;
+}
+
+.footer__address-line {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: rgba(248, 247, 245, 0.3);
+    letter-spacing: 0.04em;
+}
+
+.footer__email {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: rgba(248, 247, 245, 0.35);
+    text-decoration: none;
+    margin-top: 6px;
+    transition: color 0.22s ease;
+    position: relative;
+    display: inline-block;
+}
+
+.footer__email::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--signal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-premium);
+}
+
+.footer__email:hover {
+    color: var(--canvas);
+}
+
+.footer__email:hover::after {
+    transform: scaleX(1);
+}
+
+/* ─── Bottom bar ─────────────────────────────────────────────────────────── */
+.footer__bottom {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba(209, 205, 198, 0.08);
+    padding-block: clamp(16px, 2.5vh, 24px);
+    /* Red left accent on entire bottom bar */
+    border-left: 3px solid rgba(192, 0, 26, 0.3);
+}
+
+.footer__bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(12px, 2vw, 24px);
+    flex-wrap: wrap;
+}
+
+.footer__copy {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(248, 247, 245, 0.18);
+}
+
+.footer__copy-sep {
+    opacity: 0.4;
+}
+
+.footer__bottom-coord {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(248, 247, 245, 0.1);
+}
+
+.footer__legal {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(248, 247, 245, 0.2);
+}
+
+.footer__legal-link {
+    color: rgba(248, 247, 245, 0.2);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease;
+}
+
+.footer__legal-link:hover {
+    color: var(--signal);
+}
+
+/* ─── TABLET 769–1024px ──────────────────────────────────────────────────── */
+@media (max-width: 1024px) and (min-width: 641px) {
+    .footer__main-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(32px, 5vw, 52px);
+    }
+
+    /* Brand spans full width on tablet */
+    .footer__brand {
+        grid-column: 1 / -1;
+    }
+
+    .footer__wordmark-letter {
+        font-size: clamp(2.8rem, 7vw, 4.5rem);
+    }
+
+    .footer__bg-word {
+        font-size: clamp(6rem, 18vw, 14rem);
+    }
+
+    .footer__bottom-coord {
+        display: none;
+    }
+}
+
+/* ─── MOBILE ≤640px ──────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .footer__main-inner {
+        grid-template-columns: 1fr;
+        gap: clamp(36px, 8vw, 52px);
+    }
+
+    /* Wordmark: big and bold, first thing seen on mobile */
+    .footer__wordmark-letter {
+        font-size: clamp(2.8rem, 13vw, 4.2rem);
+    }
+
+    /* Brand section: full layout */
+    .footer__tagline {
+        max-width: 100%;
+    }
+
+    /* Nav columns sit side by side on mobile */
+    .footer__nav-col, .footer__contact-col {
+        width: 100%;
+    }
+
+    /* On mobile, nav cols go side by side */
+    .footer__main-inner>.footer__nav-col:nth-child(2),
+    .footer__main-inner>.footer__nav-col:nth-child(3) {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    /* Stack nav cols 2+3 into a row */
+    .footer__nav-cols-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+
+    .footer__bg-word {
+        font-size: clamp(5rem, 22vw, 9rem);
+        bottom: 20px;
+    }
+
+    /* Bottom bar stacks on mobile */
+    .footer__bottom-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .footer__bottom-coord {
+        display: none;
+    }
+
+    .footer__copy {
+        font-size: 10px;
+    }
+
+    /* Marquee smaller on mobile */
+    .footer__marquee-track span {
+        font-size: 10px;
+        letter-spacing: 0.2em;
+    }
+
+    /* CTA heading more compact */
+    .footer__cta-heading {
+        font-size: clamp(1.3rem, 6vw, 1.7rem);
+    }
+
+    /* Cross decorations hidden on small screens */
+    .footer__crosses {
+        display: none;
+    }
+}
+
+/* ─── Very small phones ──────────────────────────────────────────────────── */
+@media (max-width: 375px) {
+    .footer__wordmark-letter {
+        font-size: 2.5rem;
+    }
+
+    .footer__socials {
+        gap: 8px;
+    }
+
+    .footer__social {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .footer__marquee-track {
+        animation: none;
+    }
+
+    .footer__cross:first-child.footer__cross--in {
+        animation: none;
+    }
+
+    .footer__brand, .footer__nav-col, .footer__contact-col,
+    .footer__wordmark-letter, .footer__wordmark-sub,
+    .footer__cta, .footer__cross, .footer__link {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
