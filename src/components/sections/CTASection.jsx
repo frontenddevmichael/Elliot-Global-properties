@@ -50,7 +50,6 @@ export default function CTASection() {
 
     return (
         <section className="cta-section" ref={ref} aria-label="Contact call to action">
-
             {/* ── Background: rich layered dark with red glow ───────────── */}
             <div className="cta-section__bg" aria-hidden="true">
                 {/* Radial red glow — top right */}
@@ -150,10 +149,6 @@ export default function CTASection() {
                 </div>
 
             </div>
-
-            {/* ── Bottom red line ─────────────────────────────────────────── */}
-            <div className={`cta-section__bottom-rule ${visible ? 'cta-section__bottom-rule--in' : ''}`}
-                aria-hidden="true" />
 
         </section>
     )

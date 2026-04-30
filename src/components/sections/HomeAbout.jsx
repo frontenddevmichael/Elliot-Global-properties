@@ -21,7 +21,7 @@ const PILLARS = [
     {
         number: '01',
         title: 'Rooted in Lagos,\nreaching beyond.',
-        body: 'Since 2012, we have operated at the intersection of market intelligence and personal relationships — placing clients in properties that perform and spaces they are proud to call home.',
+        body: 'Since 2022, we have operated at the intersection of market intelligence and personal relationships — placing clients in properties that perform and spaces they are proud to call home.',
     },
     {
         number: '02',
