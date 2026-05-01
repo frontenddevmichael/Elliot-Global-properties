@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-import "./styles/Testimonials.css"
+import './styles/Testimonials.css'
+
 export const TESTIMONIALS = [
     {
         id: 1,
         name: 'Chinedu Adeyemi',
         role: 'First-time Buyer',
         location: 'Ikoyi, Lagos',
-        avatar: null,
         initials: 'CA',
         rating: 5,
         daysAgo: 11,
@@ -17,7 +17,6 @@ export const TESTIMONIALS = [
         name: 'Sandra Eze',
         role: 'Property Investor',
         location: 'Victoria Island, Lagos',
-        avatar: null,
         initials: 'SE',
         rating: 5,
         daysAgo: 11,
@@ -28,7 +27,6 @@ export const TESTIMONIALS = [
         name: 'Tunde Balogun',
         role: 'Commercial Client',
         location: 'Lekki Phase 1',
-        avatar: null,
         initials: 'TB',
         rating: 5,
         daysAgo: 18,
@@ -39,7 +37,6 @@ export const TESTIMONIALS = [
         name: 'Amaka Okafor',
         role: 'Estate Management',
         location: 'Abuja, FCT',
-        avatar: null,
         initials: 'AO',
         rating: 5,
         daysAgo: 24,
@@ -50,7 +47,6 @@ export const TESTIMONIALS = [
         name: 'Kola Fashola',
         role: 'HNW Investor',
         location: 'Port Harcourt',
-        avatar: null,
         initials: 'KF',
         rating: 5,
         daysAgo: 30,
@@ -59,23 +55,19 @@ export const TESTIMONIALS = [
 ]
 
 const AUTO_INTERVAL = 7000
-const EXIT_DURATION = 500
-const ENTER_DURATION = 700
+const EXIT_MS = 380
+const ENTER_MS = 560
 
-// ─── Star rating ──────────────────────────────────────────────────────────────
-function StarRating({ rating, max = 5, light = false }) {
+/* ─── Stars ─────────────────────────────────────────────────── */
+function Stars({ count = 5, filled = 5 }) {
     return (
-        <div className="tm__stars" aria-label={`${rating} out of ${max} stars`}>
-            {Array.from({ length: max }).map((_, i) => (
-                <svg key={i} width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <div className="tm2-stars" aria-label={`${filled} out of ${count} stars`}>
+            {Array.from({ length: count }).map((_, i) => (
+                <svg key={i} width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
                     <path
-                        d="M7 1l1.62 3.28L12 4.9 9.5 7.3l.59 3.44L7 9.1 3.91 10.74 4.5 7.3 2 4.9l3.38-.62L7 1z"
-                        fill={i < rating
-                            ? (light ? 'rgba(255,255,255,0.9)' : '#F59E0B')
-                            : 'transparent'}
-                        stroke={i < rating
-                            ? (light ? 'rgba(255,255,255,0.8)' : '#F59E0B')
-                            : (light ? 'rgba(255,255,255,0.25)' : 'rgba(13,13,13,0.18)')}
+                        d="M6.5 1l1.5 3.05L11 4.63 8.75 6.83l.53 3.1L6.5 8.43 3.72 9.93l.53-3.1L2 4.63l3-.58L6.5 1z"
+                        fill={i < filled ? '#fff' : 'transparent'}
+                        stroke={i < filled ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.22)'}
                         strokeWidth="1"
                         strokeLinejoin="round"
                     />
@@ -85,25 +77,11 @@ function StarRating({ rating, max = 5, light = false }) {
     )
 }
 
-// ─── Avatar ───────────────────────────────────────────────────────────────────
-function Avatar({ avatar, initials, name, size = 'md' }) {
-    const [err, setErr] = useState(false)
-    if (avatar && !err) {
-        return <img src={avatar} alt={name} className="tm__avatar-img" onError={() => setErr(true)} />
-    }
-    return (
-        <div className={`tm__avatar-initials tm__avatar-initials--${size}`} aria-label={name}>
-            {initials}
-        </div>
-    )
-}
-
-// ─── Main component ───────────────────────────────────────────────────────────
+/* ─── Main ───────────────────────────────────────────────────── */
 export default function Testimonials() {
-    const [active, setActive] = useState(0)
-    const [display, setDisplay] = useState(0)
-    const [phase, setPhase] = useState('idle')   // idle | exiting | entering
-    const [direction, setDirection] = useState('next')
+    const [index, setIndex] = useState(0)
+    const [displayed, setDisplayed] = useState(0)
+    const [phase, setPhase] = useState('idle')   // idle | exit | enter
     const [progress, setProgress] = useState(0)
 
     const rafRef = useRef(null)
@@ -112,33 +90,32 @@ export default function Testimonials() {
     const lockRef = useRef(false)
 
     const total = TESTIMONIALS.length
+    const t = TESTIMONIALS[displayed]
 
-    // ── Three-phase cinematic transition ─────────────────────────────────────
-    const goTo = useCallback((next, dir = 'next') => {
-        if (lockRef.current) return
+    /* ── Transition ────────────────────────────────────────────── */
+    const goTo = useCallback((next) => {
+        if (lockRef.current || next === index) return
         lockRef.current = true
         cancelAnimationFrame(rafRef.current)
         setProgress(0)
         startRef.current = null
-        setDirection(dir)
 
-        setPhase('exiting')
-
+        setPhase('exit')
         setTimeout(() => {
-            setDisplay(next)
-            setActive(next)
-            setPhase('entering')
+            setDisplayed(next)
+            setIndex(next)
+            setPhase('enter')
             setTimeout(() => {
                 setPhase('idle')
                 lockRef.current = false
-            }, ENTER_DURATION)
-        }, EXIT_DURATION)
-    }, [])
+            }, ENTER_MS)
+        }, EXIT_MS)
+    }, [index])
 
-    const goNext = useCallback(() => goTo((active + 1) % total, 'next'), [active, total, goTo])
-    const goPrev = useCallback(() => goTo((active - 1 + total) % total, 'prev'), [active, total, goTo])
+    const goNext = useCallback(() => goTo((index + 1) % total), [index, total, goTo])
+    const goPrev = useCallback(() => goTo((index - 1 + total) % total), [index, total, goTo])
 
-    // ── rAF progress + auto-advance ───────────────────────────────────────────
+    /* ── Auto-advance + progress ───────────────────────────────── */
     const startProgress = useCallback(() => {
         cancelAnimationFrame(rafRef.current)
         startRef.current = null
@@ -153,10 +130,7 @@ export default function Testimonials() {
         rafRef.current = requestAnimationFrame(tick)
     }, [goNext])
 
-    useEffect(() => {
-        startProgress()
-        return () => cancelAnimationFrame(rafRef.current)
-    }, [active])
+    useEffect(() => { startProgress(); return () => cancelAnimationFrame(rafRef.current) }, [index])
 
     useEffect(() => {
         const onKey = (e) => {
@@ -167,162 +141,157 @@ export default function Testimonials() {
         return () => window.removeEventListener('keydown', onKey)
     }, [goNext, goPrev])
 
-    const t = TESTIMONIALS[display]
-
     return (
         <section
-            className="tm"
+            className="tm2"
             aria-label="Client testimonials"
             onMouseEnter={() => { pausedRef.current = true }}
-            onMouseLeave={() => { pausedRef.current = false }}
+            onMouseLeave={() => { pausedRef.current = false; startRef.current = null }}
         >
 
-            {/* ── Background decorative SVG ──────────────────────────────── */}
-            <div className="tm__bg-art" aria-hidden="true">
-                {/* Concentric survey rings from bottom-right */}
-                <svg width="100%" height="100%" viewBox="0 0 900 600"
-                    preserveAspectRatio="xMaxYMax slice" xmlns="http://www.w3.org/2000/svg">
-                    {[...Array(7)].map((_, i) => (
-                        <circle key={i}
-                            cx={900} cy={600}
-                            r={120 + i * 95}
-                            fill="none"
-                            stroke={`rgba(255,255,255,${0.04 - i * 0.004})`}
-                            strokeWidth="1"
-                        />
-                    ))}
-                    {/* Survey grid lines */}
-                    {[...Array(5)].map((_, i) => (
-                        <line key={`h${i}`}
-                            x1="0" y1={120 * i + 40} x2="900" y2={120 * i + 40}
-                            stroke="rgba(255,255,255,0.03)" strokeWidth="0.5"
-                        />
-                    ))}
-                    {[...Array(6)].map((_, i) => (
-                        <line key={`v${i}`}
-                            x1={150 * i + 30} y1="0" x2={150 * i + 30} y2="600"
-                            stroke="rgba(255,255,255,0.03)" strokeWidth="0.5"
-                        />
-                    ))}
-                    {/* Crosshair at bottom right */}
-                    <line x1="870" y1="560" x2="900" y2="560" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" />
-                    <line x1="885" y1="545" x2="885" y2="575" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" />
-                </svg>
-            </div>
+            {/* ── Decorative SVG noise/grid ─────────────────────────── */}
+            <svg className="tm2-bg-svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
+                viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+                {/* Concentric rings — bottom-right anchor */}
+                {[160, 270, 390, 520, 660, 810, 970].map((r, i) => (
+                    <circle key={i} cx="1200" cy="600" r={r}
+                        fill="none" stroke={`rgba(255,255,255,${0.055 - i * 0.007})`} strokeWidth="0.8" />
+                ))}
+                {/* Horizontal rules */}
+                {[0.08, 0.28, 0.5, 0.72, 0.92].map((y, i) => (
+                    <line key={i} x1="0" y1={y * 600} x2="1200" y2={y * 600}
+                        stroke="rgba(255,255,255,0.03)" strokeWidth="0.6" />
+                ))}
+                {/* Vertical rules */}
+                {[0.14, 0.35, 0.57, 0.78].map((x, i) => (
+                    <line key={i} x1={x * 1200} y1="0" x2={x * 1200} y2="600"
+                        stroke="rgba(255,255,255,0.025)" strokeWidth="0.6" />
+                ))}
+                {/* Cross-hair */}
+                <line x1="1168" y1="568" x2="1200" y2="568" stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" />
+                <line x1="1184" y1="552" x2="1184" y2="584" stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" />
+            </svg>
 
-            {/* ── Grain ─────────────────────────────────────────────────── */}
-            <div className="tm__grain" aria-hidden="true" />
+            {/* ── Grain ────────────────────────────────────────────────── */}
+            <div className="tm2-grain" aria-hidden="true" />
 
-            <div className="container tm__inner">
+            <div className="tm2-inner">
 
-                {/* ── TOP: section label row ──────────────────────────────── */}
-                <div className="tm__top-row">
-                    <div className="tm__top-left">
-                        <span className="tm__eyebrow">Client Reviews</span>
-                        <h2 className="tm__headline">
-                            What our clients
-                            <br /><em>say about us.</em>
-                        </h2>
+                {/* ══════════════════════════════════════════════════════════
+            LEFT RAIL
+        ════════════════════════════════════════════════════════════ */}
+                <aside className="tm2-rail">
+
+                    {/* Brand mark */}
+                    <div className="tm2-rail-brand">
+                        <span className="tm2-rail-eyebrow">Elliot Global</span>
+                        <span className="tm2-rail-label">Client Reviews</span>
                     </div>
 
-                    {/* Counter + progress */}
-                    <div className="tm__top-right">
-                        <div className="tm__count-display">
-                            <span className="tm__count-active">{String(active + 1).padStart(2, '0')}</span>
-                            <div className="tm__count-bar">
-                                <div className="tm__count-bar-fill" style={{ width: `${progress}%` }} />
-                            </div>
-                            <span className="tm__count-total">{String(total).padStart(2, '0')}</span>
+                    {/* Large counter */}
+                    <div className="tm2-counter-block">
+                        <div className="tm2-counter-num" aria-hidden="true">
+                            <span className="tm2-counter-ghost">{String(index + 1).padStart(2, '0')}</span>
+                            <span className="tm2-counter-live">{String(index + 1).padStart(2, '0')}</span>
+                        </div>
+
+                        {/* Progress bar */}
+                        <div className="tm2-counter-track" role="progressbar"
+                            aria-valuenow={Math.round(progress)} aria-valuemin={0} aria-valuemax={100}>
+                            <div className="tm2-counter-fill" style={{ width: `${progress}%` }} />
+                        </div>
+
+                        <div className="tm2-counter-fraction">
+                            <span className="tm2-counter-cur">{String(index + 1).padStart(2, '0')}</span>
+                            <span className="tm2-counter-sep"> / </span>
+                            <span className="tm2-counter-tot">{String(total).padStart(2, '0')}</span>
                         </div>
                     </div>
-                </div>
 
-                {/* ── MAIN QUOTE STAGE ────────────────────────────────────── */}
-                <div
-                    className={`tm__stage tm__stage--${phase} tm__stage--${direction}`}
-                    aria-live="polite"
-                    aria-atomic="true"
-                >
-                    {/* Decorative large quote mark — stays put, content shifts */}
-                    <div className="tm__deco-quote" aria-hidden="true">"</div>
-
-                    {/* The quote text — this is the hero of this section */}
-                    <blockquote className="tm__quote">
-                        <p className="tm__quote-text">{t.text}</p>
-                    </blockquote>
-
-                    {/* Stars */}
-                    <div className="tm__rating-row">
-                        <StarRating rating={t.rating} light />
-                        <span className="tm__rating-label">
-                            {t.rating === 5 ? 'Exceptional experience' : 'Great experience'}
-                        </span>
+                    {/* Stars in rail */}
+                    <div className="tm2-rail-footer">
+                        <Stars filled={t.rating} />
+                        <span className="tm2-rail-verdict">Exceptional</span>
                     </div>
-                </div>
+                </aside>
 
-                {/* ── BOTTOM: client info + navigation ────────────────────── */}
-                <div className="tm__bottom-row">
+                {/* ══════════════════════════════════════════════════════════
+            RIGHT: QUOTE + IDENTITY
+        ════════════════════════════════════════════════════════════ */}
+                <div className="tm2-right">
 
-                    {/* Client identity */}
+                    {/* ── Quote stage ──────────────────────────────────────── */}
                     <div
-                        className={`tm__client tm__client--${phase} tm__client--${direction}`}
+                        className={`tm2-stage tm2-stage--${phase}`}
+                        aria-live="polite"
+                        aria-atomic="true"
                     >
-                        <div className="tm__avatar-wrap">
-                            <Avatar avatar={t.avatar} initials={t.initials} name={t.name} />
-                            {/* Red ring on avatar */}
-                            <div className="tm__avatar-ring" aria-hidden="true" />
-                        </div>
-                        <div className="tm__client-info">
-                            <p className="tm__client-name">{t.name}</p>
-                            <p className="tm__client-role">
-                                {t.role}
-                                <span className="tm__client-sep" aria-hidden="true"> · </span>
-                                {t.location}
-                            </p>
-                        </div>
+                        {/* Decorative large open-quote */}
+                        <div className="tm2-deco-quote" aria-hidden="true">&ldquo;</div>
+
+                        <blockquote className="tm2-quote">
+                            <p className="tm2-quote-text">{t.text}</p>
+                        </blockquote>
                     </div>
 
-                    {/* Navigation arrows + dots */}
-                    <div className="tm__nav">
-                        <div className="tm__dots" role="tablist">
-                            {TESTIMONIALS.map((item, i) => (
-                                <button
-                                    key={item.id}
-                                    role="tab"
-                                    className={`tm__dot ${i === active ? 'tm__dot--active' : ''}`}
-                                    aria-selected={i === active}
-                                    aria-label={`Review by ${item.name}`}
-                                    onClick={() => goTo(i, i > active ? 'next' : 'prev')}
-                                />
-                            ))}
-                        </div>
-                        <div className="tm__arrows">
-                            <button
-                                className="tm__arrow"
-                                onClick={goPrev}
-                                aria-label="Previous testimonial"
-                            >
-                                <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
-                                    <path d="M21 8H1M7 2L1 8l6 6"
-                                        stroke="currentColor" strokeWidth="1.5"
-                                        strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </button>
-                            <button
-                                className="tm__arrow tm__arrow--next"
-                                onClick={goNext}
-                                aria-label="Next testimonial"
-                            >
-                                <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
-                                    <path d="M1 8h20M15 2l6 6-6 6"
-                                        stroke="currentColor" strokeWidth="1.5"
-                                        strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                    {/* ── Divider ──────────────────────────────────────────── */}
+                    <div className="tm2-divider" aria-hidden="true" />
 
+                    {/* ── Bottom: identity + nav ───────────────────────────── */}
+                    <div className="tm2-bottom">
+
+                        {/* Client identity */}
+                        <div className={`tm2-identity tm2-identity--${phase}`}>
+                            <div className="tm2-avatar-wrap">
+                                <div className="tm2-avatar">{t.initials}</div>
+                                <div className="tm2-avatar-ring" aria-hidden="true" />
+                            </div>
+                            <div className="tm2-client-info">
+                                <p className="tm2-client-name">{t.name}</p>
+                                <p className="tm2-client-meta">
+                                    <span>{t.role}</span>
+                                    <span className="tm2-dot-sep" aria-hidden="true">·</span>
+                                    <span>{t.location}</span>
+                                </p>
+                            </div>
+                            <div className="tm2-days-badge">{t.daysAgo}d ago</div>
+                        </div>
+
+                        {/* Navigation */}
+                        <nav className="tm2-nav" aria-label="Testimonial navigation">
+                            <div className="tm2-dots" role="tablist">
+                                {TESTIMONIALS.map((item, i) => (
+                                    <button
+                                        key={item.id}
+                                        role="tab"
+                                        className={`tm2-pip${i === index ? ' tm2-pip--active' : ''}`}
+                                        aria-selected={i === index}
+                                        aria-label={`Review by ${item.name}`}
+                                        onClick={() => goTo(i)}
+                                    />
+                                ))}
+                            </div>
+                            <div className="tm2-arrows">
+                                <button className="tm2-arrow" onClick={goPrev} aria-label="Previous testimonial">
+                                    <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                                        <path d="M17 7H1M6 2L1 7l5 5"
+                                            stroke="currentColor" strokeWidth="1.4"
+                                            strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </button>
+                                <button className="tm2-arrow tm2-arrow--next" onClick={goNext} aria-label="Next testimonial">
+                                    <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                                        <path d="M1 7h16M12 2l5 5-5 5"
+                                            stroke="currentColor" strokeWidth="1.4"
+                                            strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </nav>
+
+                    </div>
                 </div>
+
             </div>
         </section>
     )
