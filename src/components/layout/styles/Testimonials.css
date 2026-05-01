@@ -37,7 +37,7 @@
 /* ─── Layout: sidebar + stage ────────────────────────────────────────────── */
 .tm__layout {
     display: grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 220px 1fr;
     gap: clamp(40px, 6vw, 80px);
     align-items: center;
 }
@@ -47,7 +47,7 @@
     display: flex;
     flex-direction: column;
     gap: 22px;
-    padding: 0% 3rem;
+    margin: 0% 2rem;
 }
 
 /* Big opening quote */
@@ -68,7 +68,7 @@
     font-weight: 600;
     line-height: 1.1;
     letter-spacing: -0.025em;
-    width: 100%;
+    width: 250%;
     color: var(--white);
 }
 
@@ -235,7 +235,6 @@
         transform 420ms cubic-bezier(0.4, 0, 1, 1);
 }
 
-/* ENTERING next — rises from below + right, settles with spring */
 .tm__card-wrap--entering.tm__card-wrap--next {
     opacity: 1;
     transform: translateY(0) translateX(0) scale(1);
@@ -245,7 +244,6 @@
     /* Initial state before transition starts is set in JS via phase swap */
 }
 
-/* ENTERING prev — rises from below + left, settles with spring */
 .tm__card-wrap--entering.tm__card-wrap--prev {
     opacity: 1;
     transform: translateY(0) translateX(0) scale(1);
@@ -290,9 +288,8 @@
 /* ─── Main card ──────────────────────────────────────────────────────────── */
 .tm__card {
     background: var(--white);
-    border: 1px solid rgba(13, 13, 13, 0.07);
-    border-radius: 4px;
-    padding: clamp(28px, 3.5vw, 48px);
+    border-radius: .5rem;
+    padding: clamp(25px, 3.2vw, 45px);
     display: flex;
     flex-direction: column;
     gap: clamp(20px, 2.5vw, 32px);
@@ -300,7 +297,6 @@
         0 2px 12px rgba(13, 13, 13, 0.06),
         0 1px 3px rgba(13, 13, 13, 0.04);
     /* Card top: red left accent */
-    border-left: 3px solid var(--signal);
     height: 100%;
 }
 
