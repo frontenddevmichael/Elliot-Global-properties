@@ -18,8 +18,7 @@ function useInView(threshold = 0.15) {
     return [ref, visible]
 }
 
-// ─── SVG: Architectural blueprint building ────────────────────────────────────
-// A premium thin-line building cross-section that draws itself in on mount
+
 function BlueprintSVG({ active }) {
     return (
         <svg
@@ -243,6 +242,16 @@ function FormSuccess() {
 
 // ─── Main Contact Page ────────────────────────────────────────────────────────
 export default function Contact() {
+
+    const sectionRef = useRef(null)
+
+    useEffect(() => {
+        sectionRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        })
+    }, [])
+    
     const [submitted, setSubmitted] = useState(false)
     const [sending, setSending] = useState(false)
     const [blueprintActive, setBlueprintActive] = useState(false)
@@ -285,8 +294,7 @@ export default function Contact() {
           SECTION 1 — HERO BANNER
       ══════════════════════════════════════════════════════════ */}
             <section className="contact__hero" ref={heroRef} aria-label="Contact Elliot Global">
-
-                {/* Background: dark with architectural blueprint */}
+                    <div ref={sectionRef}></div>
                 <div className="contact__hero-bg" aria-hidden="true">
                     {/* Survey grid */}
                     <svg className="contact__hero-grid" width="100%" height="100%">
@@ -373,9 +381,6 @@ export default function Contact() {
                 </div>
             </section>
 
-            {/* ══════════════════════════════════════════════════════════
-          SECTION 2 — CONTACT INFO STRIP
-      ══════════════════════════════════════════════════════════ */}
             <section className="contact__info-strip" ref={infoRef} aria-label="Contact details">
                 <div className="container contact__info-inner">
 

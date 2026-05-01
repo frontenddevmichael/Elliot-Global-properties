@@ -192,7 +192,7 @@
     position: relative;
     background:var(--void);
     border: 2px solid rgba(209, 205, 198, 0.1);
-    border-left-style: dashed;
+    border-left: 8px  dashed #dddddd29;
     overflow: hidden;
     opacity: 0;
     transform: translateY(28px);

@@ -92,7 +92,7 @@
     padding: var(--tm-pad-y) 32px;
     position: relative;
     overflow: hidden;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 20px dashed var(--tm-cream);
 }
 
 /* Soft circle flourish — bottom-right corner of rail */
@@ -116,18 +116,18 @@
 }
 
 .tm2-rail-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 10px;
+    font-family: var(--font-display);
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.954);
     display: block;
 }
 
 .tm2-rail-label {
     font-family: var(--font-serif);
-    font-size: 17px;
+    font-size: 20px;
     font-weight: 400;
     font-style: italic;
     color: rgba(255, 255, 255, 0.88);
@@ -235,11 +235,11 @@
 }
 
 .tm2-rail-verdict {
-    font-family: var(--font-mono);
-    font-size: 9px;
+    font-family: var(--font-ui);
+    font-size: 16px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.36);
+    color: rgba(255, 255, 255, 0.998);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -307,9 +307,9 @@
 }
 
 .tm2-quote-text {
-    font-family: var(--font-serif);
+    font-family: var(--font-ui);
     font-size: clamp(1.25rem, 2.6vw, 2.15rem);
-    font-weight: 400;
+    font-weight: 100;
     font-style: italic;
     line-height: 1.55;
     letter-spacing: -0.015em;
@@ -458,8 +458,8 @@
 }
 
 .tm2-client-meta {
-    font-family: var(--font-mono);
-    font-size: 10px;
+    font-family: var(--font-body);
+    font-size: 14px;
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -480,8 +480,8 @@
 /* Days badge */
 .tm2-days-badge {
     flex-shrink: 0;
-    font-family: var(--font-mono);
-    font-size: 9px;
+    font-family: var(--font-serif);
+    font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--tm-ink-40);
@@ -489,6 +489,7 @@
     border-radius: 99px;
     padding: 4px 10px;
     white-space: nowrap;
+    display: none;
 }
 
 /* Identity animation */
@@ -575,7 +576,7 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 1px solid var(--tm-ink-16);
+    border: 2px solid var(--tm-ink-16);
     background: transparent;
     color: var(--tm-ink-70);
     display: flex;
@@ -597,6 +598,7 @@
     background: var(--tm-ink);
     transform: scale(0);
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
 }
 
 .tm2-arrow:hover::before {
@@ -604,8 +606,8 @@
 }
 
 .tm2-arrow:hover {
-    color: var(--tm-cream);
-    border-color: var(--tm-ink);
+    color: red;
+    /* border-color: var(--signal); */
 }
 
 .tm2-arrow:first-child:hover {
@@ -621,17 +623,7 @@
     outline-offset: 3px;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   ██████████████████████████████████████████████████████████████████████████
-   RESPONSIVE BREAKPOINTS
-   ██████████████████████████████████████████████████████████████████████████
-   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ──────────────────────────────────────────────────────────────────────────
-   TABLET  641px – 1024px
-   Rail narrows. Font sizes compress. Padding tightens.
-   Still 2-column split — just more compact.
-   ────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) and (min-width: 641px) {
     .tm2 {
         --tm-rail-w: 200px;
@@ -670,13 +662,7 @@
     }
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   MOBILE  ≤ 640px
-   Switch to single-column stacked layout.
-   Rail becomes a top header bar (horizontal).
-   Quote stage fills full width.
-   Bottom row wraps nav below identity.
-   ────────────────────────────────────────────────────────────────────────── */
+
 @media (max-width: 640px) {
     .tm2 {
         --tm-pad-x: 24px;
@@ -700,9 +686,9 @@
         justify-content: space-between;
         padding: 20px var(--tm-pad-x);
         border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         min-height: unset;
         gap: 16px;
+        border-bottom: 20px dashed var(--tm-cream);
     }
 
     .tm2-rail::after {
@@ -847,10 +833,7 @@
     }
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   SMALL PHONE  ≤ 380px
-   Extra compression pass. Everything gets one notch tighter.
-   ────────────────────────────────────────────────────────────────────────── */
+
 @media (max-width: 380px) {
     .tm2-quote-text {
         font-size: 1.1rem;

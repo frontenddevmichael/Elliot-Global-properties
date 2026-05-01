@@ -118,7 +118,6 @@ export default function Nav() {
                 </div>
             </header>
 
-            {/* ── Mobile overlay menu ──────────────────────────────────────────────── */}
             <div
                 id="mobile-menu"
                 className={`nav__mobile-overlay ${menuOpen ? 'nav__mobile-overlay--open' : ''}`}

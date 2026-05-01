@@ -52,8 +52,8 @@ const STATS = [
     {
         coordinate: '——',
         prefix: '',
-        value: 10,
-        suffix: '',
+        value: 4,
+        suffix: '+',
         unit: 'YRS',
         label: 'Market Authority',
         sublabel:'Years of industry Excellence'
@@ -85,7 +85,6 @@ function StatCell({ stat, index, triggered }) {
                 {stat.coordinate}
             </span>
 
-            {/* Main number */}
             <div className="stats__number" aria-label={`${stat.value}${stat.suffix} ${stat.label}`}>
                 {stat.prefix && (
                     <span className="stats__number-prefix">{stat.prefix}</span>
