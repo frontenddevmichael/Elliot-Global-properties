@@ -1,320 +1,526 @@
 
+
+/* ─── Section shell ──────────────────────────────────────────────────────── */
 .tm {
+    position: relative;
     background-color: var(--signal);
-    padding-block: clamp(80px, 12vw, 130px);
+    /* full-bleed red */
+    padding-block: clamp(80px, 12vw, 132px);
     overflow: hidden;
+    isolation: isolate;
+    padding:1.5rem 2rem;
 }
 
-/* ─── Header ─────────────────────────────────────────────────────────────── */
-.tm__header {
-    text-align: center;
-    margin-bottom: clamp(52px, 8vw, 88px);
+/* ─── Background decorative SVG ──────────────────────────────────────────── */
+.tm__bg-art {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 1;
 }
+
+/* ─── Grain overlay ──────────────────────────────────────────────────────── */
+.tm__grain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.055;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+/* ─── Inner container ────────────────────────────────────────────────────── */
+.tm__inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 6vw, 68px);
+}
+
+/* ─── Top row: section header + counter ─────────────────────────────────── */
+.tm__top-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.tm__top-left {}
 
 .tm__eyebrow {
-    font-family: var(--font-ui);
-    font-size: 15px;
-    letter-spacing: 0.22em;
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 16px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 14px;
 }
 
 .tm__headline {
     font-family: var(--font-display);
-    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-size: clamp(2rem, 4.5vw, 3.8rem);
     font-weight: 300;
-    line-height: 1.12;
-    letter-spacing: -0.025em;
-    color: var(--white);
-}
-
-.tm__headline strong {
-    font-weight: 600;
-    display: block;
-}
-
-/* ─── Layout: sidebar + stage ────────────────────────────────────────────── */
-.tm__layout {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: clamp(40px, 6vw, 80px);
-    align-items: center;
-}
-
-/* ─── Sidebar ─────────────────────────────────────────────────────────────── */
-.tm__sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    margin: 0% 2rem;
-}
-
-/* Big opening quote */
-.tm__big-quote {
-    font-family: var(--font-display);
-    font-size: clamp(5rem, 9vw, 9rem);
-    font-weight: 700;
-    line-height: 0.75;
-    color: var(--white);
-    letter-spacing: -0.04em;
-    user-select: none;
-}
-
-/* Sidebar label */
-.tm__sidebar-label {
-    font-family: var(--font-display);
-    font-size: clamp(1.7rem, 3vw, 2.6rem);
-    font-weight: 600;
     line-height: 1.1;
     letter-spacing: -0.025em;
-    width: 250%;
-    color: var(--white);
+    color: rgba(255, 255, 255, 0.95);
 }
 
-.tm__sidebar-label em {
+.tm__headline em {
     font-style: italic;
-    font-weight: 300;
     display: block;
-    color: var(--white);
-    margin-top: 2px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
 }
 
-/* Controls row: prev | progress | next */
-.tm__controls {
+
+.tm__top-right {
+    flex-shrink: 0;
+    padding-bottom: 6px;
+}
+
+.tm__count-display {
     display: flex;
     align-items: center;
     gap: 14px;
 }
 
-.tm__arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: 1px solid rgba(13, 13, 13, 0.12);
-    border-radius: 50%;
-    cursor: pointer;
-    color: var(--white);
-    flex-shrink: 0;
-    transition:
-        color 0.22s ease,
-        border-color 0.22s ease,
-        background 0.22s ease,
-        transform 0.22s var(--ease-premium);
-    padding: 0;
+.tm__count-active {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    min-width: 2ch;
+    text-align: right;
 }
 
-.tm__arrow:hover {
-    color: var(--ink);
-    background: var(--white);
-    border-color: var(--white);
-}
-
-.tm__arrow:first-child:hover {
-    transform: translateX(-2px);
-}
-
-.tm__arrow:last-child:hover {
-    transform: translateX(2px);
-}
-
-.tm__arrow:focus-visible {
-    outline: 2px solid var(--signal);
-    outline-offset: 3px;
-}
-
-/* Progress bar */
-.tm__progress {
-    flex: 1;
-}
-
-.tm__progress-track {
-    width: 100%;
-    height: 2px;
-    background: rgba(13, 13, 13, 0.1);
-    border-radius: 99px;
+.tm__count-bar {
+    width: clamp(60px, 8vw, 100px);
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
     overflow: hidden;
 }
 
-.tm__progress-fill {
+.tm__count-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
-    background: var(--white);
-    border-radius: 99px;
-    transition: width 0.1s linear;
+    background: rgba(255, 255, 255, 0.75);
+    transition: width 0.12s linear;
+}
+
+.tm__count-total {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.04em;
+}
+
+/* ─── The quote stage — the centrepiece ──────────────────────────────────── */
+.tm__stage {
+    position: relative;
+    padding-block: clamp(20px, 3vw, 36px);
+    min-height: clamp(180px, 28vh, 280px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(20px, 3vw, 32px);
+    background-color: var(--white);
+    width: 80%;
+    margin: auto;
+    border-radius: 2rem;
+}
+
+/* Giant decorative opening quote — anchored, never moves */
+.tm__deco-quote {
+    position: absolute;
+    top: clamp(-20px, -3vw, -32px);
+    left: -8px;
+    font-family: var(--font-display);
+    font-size: clamp(7rem, 14vw, 14rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--void);
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.05em;
+    display: none;
+}
+
+/* The quote text */
+.tm__quote {
+    border: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    padding-left: clamp(0px, 2vw, 24px);
+}
+
+.tm__quote-text {
+    font-family: var(--font-ui);
+    font-size: clamp(1.2rem, 3vw, 2.6rem);
+    font-weight: 200;
+    font-style: italic;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color:var(--void);
+}
+
+/* Stars + label row */
+.tm__rating-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+    padding-left: clamp(0px, 2vw, 24px);
+}
+
+.tm__rating-label {
+    font-family: var(--font-body);
+    font-size: 16px;
+    letter-spacing: 0.16em;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+
+/* Exit — next direction: drift up-left */
+@keyframes stageExitNext {
+    from {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-40px) translateX(-8px);
+    }
+}
+
+/* Exit — prev direction: drift up-right */
+@keyframes stageExitPrev {
+    from {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-40px) translateX(8px);
+    }
+}
+
+/* Enter — next direction: rise from below-right */
+@keyframes stageEnterNext {
+    from {
+        opacity: 0;
+        transform: translateY(52px) translateX(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+}
+
+/* Enter — prev direction: rise from below-left */
+@keyframes stageEnterPrev {
+    from {
+        opacity: 0;
+        transform: translateY(52px) translateX(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+}
+
+/* Apply to .tm__stage */
+.tm__stage--idle {
+    opacity: 1;
+    transform: none;
+}
+
+.tm__stage--exiting.tm__stage--next {
+    animation: stageExitNext 500ms cubic-bezier(0.55, 0, 1, 0.8) forwards;
+}
+
+.tm__stage--exiting.tm__stage--prev {
+    animation: stageExitPrev 500ms cubic-bezier(0.55, 0, 1, 0.8) forwards;
+}
+
+.tm__stage--entering.tm__stage--next {
+    animation: stageEnterNext 700ms cubic-bezier(0.22, 1.2, 0.36, 1) forwards;
+}
+
+.tm__stage--entering.tm__stage--prev {
+    animation: stageEnterPrev 700ms cubic-bezier(0.22, 1.2, 0.36, 1) forwards;
+}
+
+/* Apply same to .tm__client (but with slight delay = staggered premium feel) */
+@keyframes clientExitNext {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+}
+
+@keyframes clientExitPrev {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+}
+
+@keyframes clientEnterNext {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes clientEnterPrev {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.tm__client--idle {
+    opacity: 1;
+    transform: none;
+}
+
+.tm__client--exiting.tm__client--next {
+    animation: clientExitNext 400ms cubic-bezier(0.55, 0, 1, 0.8) forwards;
+}
+
+.tm__client--exiting.tm__client--prev {
+    animation: clientExitPrev 400ms cubic-bezier(0.55, 0, 1, 0.8) forwards;
+}
+
+
+/* ─── Bottom row: client + navigation ───────────────────────────────────── */
+.tm__bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+/* ─── Client identity ────────────────────────────────────────────────────── */
+.tm__client {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Avatar wrap — relative for ring */
+.tm__avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.tm__avatar-wrap>* {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: block;
+}
+
+.tm__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tm__avatar-initials {
+    background: rgba(16, 16, 16, 0.565);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.04em;
+    border-radius: 50%;
+}
+
+/* Animated ring around avatar */
+.tm__avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgb(255, 255, 255);
+    animation: ringPulse 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes ringPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+.tm__client-info {}
+
+.tm__client-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+.tm__client-role {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: rgb(255, 255, 255);
+    margin-top: 4px;
+    text-transform: uppercase;
+}
+
+.tm__client-sep {
+    opacity: 0.4;
+}
+
+/* ─── Navigation ─────────────────────────────────────────────────────────── */
+.tm__nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-shrink: 0;
 }
 
 /* Pill dots */
 .tm__dots {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
 }
 
 .tm__dot {
-    height: 6px;
     width: 6px;
+    height: 6px;
     border-radius: 99px;
     border: none;
-    background: rgba(13, 13, 13, 0.18);
+    background: rgba(255, 255, 255, 0.25);
     cursor: pointer;
     padding: 0;
     transition: width 0.35s var(--ease-premium), background 0.25s ease;
 }
 
 .tm__dot--active {
-    width: 22px;
-    background: var(--white);
+    width: 24px;
+    background: rgba(255, 255, 255, 0.9);
 }
 
-/* Counter */
-.tm__counter {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    color: var(--white);
+.tm__dot:hover:not(.tm__dot--active) {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Arrow buttons — on red bg, white outline */
+.tm__arrows {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
-.tm__counter-current {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--white);
-}
-
-.tm__counter-sep {
-    opacity: 0.3;
-    margin-inline: 4px;
-}
-
-.tm__counter-total {
-    opacity: 0.4;
-    font-size: 13px;
-}
-
-/* ─── Stage — holds main card + peek ─────────────────────────────────────── */
-.tm__stage {
-    display: grid;
-    grid-template-columns: 1fr 22%;
-    gap: 0;
-    align-items: stretch;
+.tm__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 0;
+    position: relative;
     overflow: hidden;
-    position: relative;
-}
-
-
-.tm__card-wrap {
-    position: relative;
-}
-
-/* IDLE — fully settled */
-.tm__card-wrap--idle {
-    opacity: 1;
-    transform: translateY(0) translateX(0) scale(1);
-    transition: none;
-}
-
-/* EXITING next — lifts slightly, drifts left, fades */
-.tm__card-wrap--exiting.tm__card-wrap--next {
-    opacity: 0;
-    transform: translateY(-28px) translateX(-12px) scale(0.97);
     transition:
-        opacity 420ms cubic-bezier(0.4, 0, 1, 1),
-        transform 420ms cubic-bezier(0.4, 0, 1, 1);
+        color 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s var(--ease-premium);
 }
 
-/* EXITING prev — lifts slightly, drifts right, fades */
-.tm__card-wrap--exiting.tm__card-wrap--prev {
-    opacity: 0;
-    transform: translateY(-28px) translateX(12px) scale(0.97);
-    transition:
-        opacity 420ms cubic-bezier(0.4, 0, 1, 1),
-        transform 420ms cubic-bezier(0.4, 0, 1, 1);
+/* Fill wipe on hover */
+.tm__arrow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(0);
+    border-radius: 50%;
+    transition: transform 0.35s var(--ease-premium);
 }
 
-.tm__card-wrap--entering.tm__card-wrap--next {
-    opacity: 1;
-    transform: translateY(0) translateX(0) scale(1);
-    transition:
-        opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
-        transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
-    /* Initial state before transition starts is set in JS via phase swap */
+.tm__arrow:hover::before {
+    transform: scale(1);
 }
 
-.tm__card-wrap--entering.tm__card-wrap--prev {
-    opacity: 1;
-    transform: translateY(0) translateX(0) scale(1);
-    transition:
-        opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
-        transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+.tm__arrow:hover {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.7);
 }
 
-
-@keyframes cardRiseNext {
-    from {
-        opacity: 0;
-        transform: translateY(36px) translateX(16px) scale(0.96);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) translateX(0) scale(1);
-    }
+.tm__arrow:first-child:hover {
+    transform: translateX(-2px);
 }
 
-@keyframes cardRisePrev {
-    from {
-        opacity: 0;
-        transform: translateY(36px) translateX(-16px) scale(0.96);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) translateX(0) scale(1);
-    }
+.tm__arrow--next:hover {
+    transform: translateX(2px);
 }
 
-.tm__card-wrap--entering.tm__card-wrap--next {
-    animation: cardRiseNext 520ms cubic-bezier(0.34, 1.2, 0.64, 1) both;
-}
-
-.tm__card-wrap--entering.tm__card-wrap--prev {
-    animation: cardRisePrev 520ms cubic-bezier(0.34, 1.2, 0.64, 1) both;
-}
-
-/* ─── Main card ──────────────────────────────────────────────────────────── */
-.tm__card {
-    background: var(--white);
-    border-radius: .5rem;
-    padding: clamp(25px, 3.2vw, 45px);
-    display: flex;
-    flex-direction: column;
-    gap: clamp(20px, 2.5vw, 32px);
-    box-shadow:
-        0 2px 12px rgba(13, 13, 13, 0.06),
-        0 1px 3px rgba(13, 13, 13, 0.04);
-    /* Card top: red left accent */
-    height: 100%;
-}
-
-/* Top row: stars + role */
-.tm__card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.tm__card-role {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.808);
-    white-space: nowrap;
+.tm__arrow:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 4px;
 }
 
 /* Stars */
@@ -324,306 +530,103 @@
     gap: 3px;
 }
 
-.tm__star {
-    display: block;
-}
-
-/* Quote body */
-.tm__card-body {
-    flex: 1;
-    position: relative;
-}
-
-.tm__card-open-quote {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    font-weight: 700;
-    line-height: 0.65;
-    color: var(--signal);
-    opacity: 0.2;
-    margin-bottom: 10px;
-    user-select: none;
-}
-
-.tm__card-text {
-    font-family: var(--font-body);
-    font-size: clamp(15px, 1.5vw, 17px);
-    font-style: italic;
-    line-height: 1.78;
-    color: var(--steel);
-    letter-spacing: 0.008em;
-}
-
-/* Footer: avatar + name/date */
-.tm__card-footer {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding-top: clamp(16px, 2vw, 24px);
-    border-top: 1px solid rgba(13, 13, 13, 0.07);
-}
-
-.tm__avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-    border: 2px solid rgba(13, 13, 13, 0.08);
-}
-
-.tm__avatar--small {
-    width: 34px;
-    height: 34px;
-}
-
-.tm__avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.tm__avatar-initials {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--smoke) 0%, var(--wire) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--steel);
-    letter-spacing: 0.04em;
-}
-
-.tm__card-meta {}
-
-.tm__card-name {
-    font-family: var(--font-ui);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ink);
-    letter-spacing: 0.01em;
-}
-
-.tm__card-since {
-    font-family: var(--font-mono);
-    font-size: 5px;
-    letter-spacing: 0.07em;
-    color: rgba(13, 13, 13, 0.35);
-    margin-top: 3px;
-    font-weight: 400;
-}
-
-/* ─── PEEK card ──────────────────────────────────────────────────────────── */
-.tm__peek {
-    position: relative;
-    cursor: pointer;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-left: clamp(12px, 1.5vw, 20px);
-    border: 1px solid rgba(13, 13, 13, 0.06);
-    background: rgba(248, 247, 245, 0.7);
-    transition: background 0.3s ease;
-}
-
-.tm__peek:hover {
-    background: rgba(248, 247, 245, 1);
-}
-
-.tm__peek-inner {
-    padding: clamp(18px, 2vw, 28px) clamp(14px, 1.8vw, 22px);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    height: 100%;
-    /* Clip content so only ~25% of the card reads — the rest is faded */
-    position: relative;
-    z-index: 1;
-}
-
-.tm__peek-top {}
-
-.tm__peek-text {
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-style: italic;
-    line-height: 1.65;
-    color: rgba(13, 13, 13, 0.4);
-    /* Limit lines so it clips naturally */
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.tm__peek-footer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: auto;
-}
-
-.tm__peek-name {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: rgba(13, 13, 13, 0.35);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Right-to-left frosted fade — makes peek feel "cut off" and invites click */
-.tm__peek-fade {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 70%;
-    background: linear-gradient(to left,
-            rgba(248, 247, 245, 1) 0%,
-            rgba(248, 247, 245, 0.7) 55%,
-            rgba(248, 247, 245, 0) 100%);
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* Hover: fade pulls back slightly to reveal more */
-.tm__peek:hover .tm__peek-fade {
-    width: 60%;
-    background: linear-gradient(to left,
-            rgba(255, 255, 255, 0.95) 0%,
-            rgba(255, 255, 255, 0.5) 55%,
-            rgba(255, 255, 255, 0) 100%);
-}
-
-/* Arrow hint on peek */
-.tm__peek::after {
-    content: '→';
-    position: absolute;
-    bottom: clamp(14px, 2vw, 20px);
-    right: 12px;
-    font-family: var(--font-mono);
-    font-size: 14px;
-    color: var(--signal);
-    opacity: 0;
-    transform: translateX(-6px);
-    transition: opacity 0.25s ease, transform 0.25s var(--ease-premium);
-    z-index: 3;
-}
-
-.tm__peek:hover::after {
-    opacity: 1;
-    transform: translateX(0);
-}
-
 /* ─── TABLET 641–1024px ──────────────────────────────────────────────────── */
 @media (max-width: 1024px) and (min-width: 641px) {
-    .tm__layout {
-        grid-template-columns: 200px 1fr;
-        gap: clamp(28px, 4vw, 52px);
+    .tm__quote-text {
+        font-size: clamp(1.4rem, 3.5vw, 2.4rem);
     }
 
-    .tm__stage {
-        grid-template-columns: 1fr 24%;
+    .tm__headline {
+        font-size: clamp(1.8rem, 4.5vw, 3rem);
     }
 
-    .tm__big-quote {
-        font-size: clamp(4rem, 8vw, 7rem);
-    }
-
-    .tm__sidebar-label {
-        font-size: clamp(1.5rem, 3vw, 2.2rem);
-    }
-
-    .tm__card-text {
-        font-size: 15px;
+    .tm__count-active {
+        font-size: clamp(2rem, 4vw, 2.8rem);
     }
 }
 
 /* ─── MOBILE ≤640px ──────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-    .tm__layout {
-        grid-template-columns: 1fr;
-        gap: 36px;
+    .tm {
+        padding-block: clamp(60px, 12vw, 88px);
     }
 
-    /* Sidebar goes horizontal */
-    .tm__sidebar {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 14px 20px;
+    .tm__top-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
     }
 
-    .tm__big-quote {
-        font-size: clamp(3.5rem, 16vw, 5.5rem);
-        line-height: 0.8;
-        flex-shrink: 0;
+    /* Counter: inline after headline on mobile */
+    .tm__top-right {
+        align-self: flex-end;
     }
 
-    .tm__sidebar-label {
-        font-size: clamp(1.3rem, 6vw, 1.8rem);
-        flex: 1;
-        min-width: 140px;
+    .tm__count-active {
+        font-size: 2rem;
     }
 
-    .tm__controls {
-        width: 100%;
-        order: 5;
-    }
-
-    .tm__dots {
-        order: 6;
-    }
-
-    .tm__counter {
-        order: 7;
-        margin-left: auto;
-    }
-
-    /* Stage: full card + smaller peek on mobile */
-    .tm__stage {
-        grid-template-columns: 1fr 28%;
-    }
-
-    .tm__card {
-        padding: 24px;
-        gap: 18px;
-    }
-
-    .tm__card-text {
-        font-size: 15px;
-    }
-
-    .tm__peek-inner {
-        padding: 16px 10px;
+    .tm__count-bar {
+        width: 50px;
     }
 
     .tm__headline {
-        font-size: clamp(1.9rem, 7.5vw, 2.8rem);
+        font-size: clamp(1.7rem, 7.5vw, 2.5rem);
+    }
+
+    /* Quote: bigger on mobile relative to screen */
+    .tm__quote-text {
+        font-size: clamp(1.35rem, 5.8vw, 2rem);
+        line-height: 1.45;
+    }
+
+    .tm__deco-quote {
+        font-size: clamp(6rem, 24vw, 10rem);
+        top: -16px;
+        left: -4px;
+    }
+
+    .tm__bottom-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+    }
+
+    .tm__nav {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .tm__arrow {
+        width: 44px;
+        height: 44px;
+    }
+
+    .tm__client-name {
+        font-size: clamp(1rem, 5vw, 1.3rem);
+    }
+
+    .tm__avatar-wrap>* {
+        width: 48px;
+        height: 48px;
+    }
+
+    .tm__avatar-initials {
+        font-size: 12px;
     }
 }
 
 /* ─── Very small phones ──────────────────────────────────────────────────── */
-@media (max-width: 390px) {
-    .tm__stage {
-        grid-template-columns: 1fr 26%;
+@media (max-width: 375px) {
+    .tm__quote-text {
+        font-size: 1.3rem;
     }
 
-    .tm__card {
-        padding: 20px;
+    .tm__headline {
+        font-size: 1.6rem;
     }
 
-    .tm__card-text {
-        font-size: 14px;
-    }
-
-    .tm__avatar {
+    .tm__arrow {
         width: 40px;
         height: 40px;
     }
@@ -632,24 +635,29 @@
 /* ─── Reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
 
-    .tm__card-wrap--exiting.tm__card-wrap--next,
-    .tm__card-wrap--exiting.tm__card-wrap--prev {
-        transition: opacity 0.15s ease !important;
-        transform: none !important;
-    }
-
-    .tm__card-wrap--entering.tm__card-wrap--next,
-    .tm__card-wrap--entering.tm__card-wrap--prev {
+    .tm__stage--exiting.tm__stage--next,
+    .tm__stage--exiting.tm__stage--prev,
+    .tm__stage--entering.tm__stage--next,
+    .tm__stage--entering.tm__stage--prev,
+    .tm__client--exiting.tm__client--next,
+    .tm__client--exiting.tm__client--prev,
+    .tm__client--entering.tm__client--next,
+    .tm__client--entering.tm__client--prev {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
     }
 
-    .tm__progress-fill {
-        transition: none !important;
+    .tm__avatar-ring {
+        animation: none;
+        opacity: 0.3;
+    }
+
+    .tm__count-bar-fill {
+        transition: none;
     }
 
     .tm__dot {
-        transition: none !important;
+        transition: none;
     }
 }
