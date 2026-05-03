@@ -54,7 +54,7 @@ export const TESTIMONIALS = [
     },
 ]
 
-const AUTO_INTERVAL = 2500
+const AUTO_INTERVAL = 2700
 const EXIT_MS = 380
 const ENTER_MS = 560
 
