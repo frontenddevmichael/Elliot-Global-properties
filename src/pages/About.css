@@ -377,7 +377,7 @@
     background: var(--smoke);
     padding-block: clamp(72px, 11vw, 120px);
     overflow: hidden;
-    padding: 3rem;
+    padding: 1rem;
 }
 
 .ap-pillars__layout {
