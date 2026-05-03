@@ -2,12 +2,9 @@
 .sp--in {
     opacity: 1 !important;
     transform: none !important;
-    padding:0% 5rem;
+    padding:0% 3rem;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   HERO
-══════════════════════════════════════════════════════════════ */
 .sp-hero {
     position: relative;
     background-color: var(--void);
