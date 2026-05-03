@@ -24,6 +24,14 @@
   <meta name="rating" content="General" />
   <link rel="canonical" href="https://elliotglobal.ng/" />
 
+  <!-- ─── hreflang (self-referencing best practice) ─────────────────────── -->
+  <link rel="alternate" hreflang="en-NG" href="https://elliotglobal.ng/" />
+  <link rel="alternate" hreflang="en" href="https://elliotglobal.ng/" />
+  <link rel="alternate" hreflang="x-default" href="https://elliotglobal.ng/" />
+
+  <!-- ─── Sitemap ───────────────────────────────────────────────────────── -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
   <!-- ─── Open Graph (Facebook, LinkedIn, WhatsApp) ─────────────────────── -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Elliot Global Property" />
@@ -80,7 +88,7 @@
       },
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Street 78, Oluwakun Eputu,",
+        "streetAddress": "Street 78, Oluwakun Eputu",
         "addressLocality": "Lagos",
         "addressRegion": "Lagos State",
         "postalCode": "100010",
@@ -89,14 +97,14 @@
       "contactPoint": [
         {
           "@type": "ContactPoint",
-          "telephone": "(+234)907 438 0482",
+          "telephone": "+2349074380482",
           "contactType": "customer service",
           "areaServed": "NG",
           "availableLanguage": ["English"]
         },
         {
           "@type": "ContactPoint",
-          "email": "[Your Email]",
+          "email": "info@elliotglobal.ng",
           "contactType": "sales",
           "areaServed": "NG"
         }
@@ -160,7 +168,7 @@
         ]
       }
     }
-    </script>
+  </script>
 
   <!-- ─── Structured Data: WebSite + Sitelinks Searchbox ──────────────── -->
   <script type="application/ld+json">
@@ -180,7 +188,7 @@
         "query-input": "required name=search_term_string"
       }
     }
-    </script>
+  </script>
 
   <!-- ─── Structured Data: BreadcrumbList (Home) ───────────────────────── -->
   <script type="application/ld+json">
@@ -196,13 +204,20 @@
         }
       ]
     }
-    </script>
+  </script>
 
   <!-- ─── Favicons & App Icons ──────────────────────────────────────────── -->
-<link rel="icon" type="x-icon" href="./src/assets/eliiotGlobalLogo.png">
+  <!-- Standard favicon (PNG preferred over .ico for modern browsers) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/eliiotGlobalLogo.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/eliiotGlobalLogo.png" />
+  <!-- Apple Touch Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./src/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="./src/assets/apple-touch-icon-152.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="./src/assets/apple-touch-icon-120.png" />
 
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="msapplication-TileColor" content="#C0001A" />
+  <meta name="msapplication-TileImage" content="./src/assets/eliiotGlobalLogo.png" />
   <meta name="msapplication-config" content="/browserconfig.xml" />
   <meta name="theme-color" content="#0D0D0D" media="(prefers-color-scheme: dark)" />
   <meta name="theme-color" content="#F8F7F5" media="(prefers-color-scheme: light)" />
@@ -252,18 +267,27 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 16px;
       }
 
       .noscript-fallback h1 {
         color: #C0001A;
         font-size: 2rem;
-        margin-bottom: 16px;
+        margin-bottom: 8px;
+      }
+
+      .noscript-fallback a {
+        color: #C0001A;
+        text-decoration: underline;
       }
     </style>
     <div class="noscript-fallback">
       <h1>Elliot Global Property</h1>
       <p>Please enable JavaScript to experience our full site.</p>
-      <p>Contact us directly: <a href="mailto:info@elliotglobal.ng" style="color:#C0001A">info@elliotglobal.ng</a></p>
+      <p>Contact us directly:
+        <a href="mailto:info@elliotglobal.ng">info@elliotglobal.ng</a>
+      </p>
+      <p>Or call us: <a href="tel:+2348086949157">+234 907 438 0482</a></p>
     </div>
   </noscript>
 </body>
