@@ -709,7 +709,7 @@
 ══════════════════════════════════════════════════════════════ */
 .sp-closing {
     position: relative;
-    background: var(--signal);
+    background: var(--signal-muted);
     padding-block: clamp(88px, 14vw, 144px);
     overflow: hidden;
     isolation: isolate;
@@ -749,11 +749,11 @@
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 11px;
+    font-family: var(--font-ui);
+    font-size: 16px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.948);
     margin-bottom: clamp(18px, 2.5vw, 28px);
 }
 
@@ -824,6 +824,7 @@
     z-index: -1;
 }
 
+
 .sp-closing__btn:hover .sp-closing__btn-fill {
     transform: scaleX(1);
 }
@@ -831,7 +832,7 @@
 .sp-closing__btn--primary {
     background: rgba(255, 255, 255, 0.95);
     color: var(--signal);
-    border: 1px solid rgba(255, 255, 255, 0.95);
+    border: 1.5px solid rgba(255, 255, 255, 0.95);
 }
 
 .sp-closing__btn--primary .sp-closing__btn-fill {
@@ -854,10 +855,10 @@
 }
 
 .sp-closing__note {
-    font-family: var(--font-mono);
-    font-size: 11px;
+    font-family: var(--font-ui);
+    font-size: 14px;
     letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.831);
 }
 
 /* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */

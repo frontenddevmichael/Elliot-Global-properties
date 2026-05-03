@@ -415,6 +415,8 @@ function ServiceSection({ service, index }) {
     const { ImageComponent } = service
     const isRight = service.imageRight
 
+
+
     return (
         <section
             ref={ref}
@@ -602,12 +604,12 @@ function ClosingCTA() {
                         <span>Start a Conversation</span>
                         <svg width="18" height="11" viewBox="0 0 18 11" fill="none">
                             <path d="M0 5.5h15M10 1l5 4.5-5 4.5"
-                                stroke="currentColor" strokeWidth="1.4"
+                                stroke="currentColor" strokeWidth="2.4"
                                 strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         <span className="sp-closing__btn-fill" aria-hidden="true" />
                     </a>
-                    <a href="tel:+2341234567890" className="sp-closing__btn sp-closing__btn--ghost">
+                    <a href="tel:+2348086949157" className="sp-closing__btn sp-closing__btn--ghost">
                         Call Us Directly
                     </a>
                 </div>
@@ -624,12 +626,20 @@ function ClosingCTA() {
 export default function ServicesPage() {
     const servicesRef = useRef(null)
 
-    return (
-        <main className="services-page page-content">
-            <ServicesHero />
+         const sectionRef = useRef(null)
 
-            {/* Scroll progress line — fixed left edge */}
-            <ScrollProgressLine containerRef={servicesRef} />
+         useEffect(() =>{
+            sectionRef.current?.scrollIntoView(
+                {
+                    behaviour : "smooth",
+                    block : "start"
+                }
+            )
+         })
+
+    return (
+        <main className="services-page page-content" ref={sectionRef}>
+            <ServicesHero />
 
             {/* All four service sections */}
             <div ref={servicesRef}>

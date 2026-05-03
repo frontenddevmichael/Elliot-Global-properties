@@ -523,9 +523,23 @@ function ValuesManifest() {
 
 // ─── MAIN EXPORT ─────────────────────────────────────────────────────────────
 export default function AboutPage() {
+
+
+    const sectionRef = useRef(null);
+
+    useEffect(() =>{
+        sectionRef.current?.scrollIntoView(
+            {
+                behaviour : "smooth",
+                block : "start"
+            }
+        )
+    }, [])
+
     return (
         <main className="about-page page-content">
-            <AboutHero />
+            <div ref={sectionRef}></div>
+            <AboutHero/>
             <MissionStatement />
             <BrandPillars />
             <WhyChooseUs />
