@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import TeamSection from '../components/layout/Teamsection'
 import './About.css'
+import PropertyShowcase from '../components/layout/PropertyShowcase'
 
 // ─── useInView ────────────────────────────────────────────────────────────────
 function useInView(threshold = 0.12, once = true) {
@@ -125,8 +127,8 @@ const WHY_REASONS = [
 
 const STATS = [
     { value: '50+', label: 'Clients Served', sub: 'Across Nigeria' },
-    { value: '₦20+', label: 'Projects', sub: 'Across Lagos' },
-    { value: '4+', label: 'Market Authority', sub: 'Est. Lagos' },
+    { value: '20+', label: 'Projects', sub: 'Across Lagos' },
+    { value: '4+', label: 'Years of Market Authority', sub: 'Est. Lagos' },
     { value: '4', label: 'Active Cities', sub: 'And growing' },
 ]
 
@@ -544,6 +546,7 @@ export default function AboutPage() {
             <BrandPillars />
             <WhyChooseUs />
             <LekkiEpeFocus />
+            <TeamSection />
             <ValuesManifest />
         </main>
     )

@@ -1,0 +1,789 @@
+/* ============================================================
+   ELLIOT GLOBAL PROPERTIES — TEAM SECTION
+   TeamsSection.css
+   ============================================================ */
+
+/* ─── Section shell ──────────────────────────────────────── */
+
+.ts {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background lattice SVG */
+.ts__bg-lattice {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ─── Shared in-view trigger ─────────────────────────────── */
+
+.ts--in {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* ─── Container ──────────────────────────────────────────── */
+
+.ts .container {
+    max-width: var(--max-width, 1280px);
+    margin: 0 auto;
+    padding: 0 var(--container-padding, clamp(1.5rem, 5vw, 4rem));
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── Eyebrow ────────────────────────────────────────────── */
+
+.ts__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.ts__eyebrow-rule {
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--signal);
+    flex-shrink: 0;
+}
+
+.ts__eyebrow-text {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(13, 13, 13, 0.5);
+}
+
+/* ============================================================
+   BOARD OF DIRECTORS SECTION
+============================================================ */
+
+.ts__board-section {
+    background: var(--canvas);
+    padding: clamp(5rem, 9vw, 7rem) 0 clamp(4rem, 7vw, 6rem);
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+
+.ts__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: clamp(3rem, 5vw, 4rem);
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 0.7s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1)),
+        transform 0.7s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.ts__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    font-weight: var(--weight-light, 300);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+}
+
+.ts__title em {
+    font-style: italic;
+    color: var(--signal);
+}
+
+.ts__header-sub {
+    font-family: var(--font-ui);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.75;
+    color: var(--text-muted);
+    align-self: end;
+    padding-bottom: 6px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+        opacity 0.7s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1)),
+        transform 0.7s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* ─── Board grid ─────────────────────────────────────────── */
+
+.ts__board-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+}
+
+/* ─── Board card ─────────────────────────────────────────── */
+
+.ts__board-card {
+    background: var(--white);
+    border: 0.5px solid var(--smoke);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity 0.65s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1)),
+        transform 0.65s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1)),
+        box-shadow 0.3s ease;
+}
+
+.ts__board-card--in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ts__board-card:hover {
+    box-shadow: 0 16px 48px rgba(13, 13, 13, 0.12);
+}
+
+/* ── Photo area ───────────────────────────────────────────── */
+
+.ts__board-photo {
+    position: relative;
+    height: 280px;
+    background: var(--smoke);
+    overflow: hidden;
+}
+
+.ts__board-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: grayscale(60%);
+    transition:
+        filter 0.5s ease,
+        transform 0.5s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.ts__board-card:hover .ts__board-photo-img {
+    filter: grayscale(0%);
+    transform: scale(1.03);
+}
+
+.ts__board-photo-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: rgba(13, 13, 13, 0.15);
+}
+
+.ts__board-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.ts__board-badge {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: var(--signal);
+    padding: 5px 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--canvas);
+    z-index: 3;
+}
+
+/* ── Bio overlay — simple opacity fade on hover ───────────── */
+
+.ts__board-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.82);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 28px 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 4;
+}
+
+.ts__board-card:hover .ts__board-overlay {
+    opacity: 1;
+}
+
+.ts__board-overlay-bio {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(248, 247, 245, 0.85);
+    margin-bottom: 20px;
+}
+
+.ts__board-overlay-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(248, 247, 245, 0.5);
+    text-decoration: none;
+    border-bottom: 0.5px solid rgba(248, 247, 245, 0.2);
+    padding-bottom: 4px;
+    width: fit-content;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.ts__board-overlay-link:hover {
+    color: var(--signal);
+    border-color: var(--signal);
+}
+
+/* ── Info area ────────────────────────────────────────────── */
+
+.ts__board-info {
+    padding: 22px 24px 26px;
+}
+
+.ts__board-accent-line {
+    height: 1px;
+    background: var(--signal);
+    transform: scaleX(0);
+    transform-origin: left;
+    margin-bottom: 16px;
+    transition: transform 0.45s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.ts__board-card:hover .ts__board-accent-line {
+    transform: scaleX(1);
+}
+
+.ts__board-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.ts__board-role {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(13, 13, 13, 0.42);
+    margin-bottom: 16px;
+}
+
+.ts__board-quote {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--steel);
+    padding-left: 14px;
+    border-left: 1.5px solid rgba(192, 0, 26, 0.35);
+    margin: 0;
+}
+
+/* ============================================================
+   PRIME AXIS TECH SECTION
+============================================================ */
+
+.ts__tech-section {
+    background: var(--void, #0d0d0d);
+    padding: clamp(4rem, 7vw, 6rem) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* faint top border with signal flash */
+.ts__tech-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(192, 0, 26, 0.6) 30%,
+            rgba(192, 0, 26, 0.6) 70%,
+            transparent 100%);
+}
+
+/* ─── Wrapper ─────────────────────────────────────────────── */
+
+.pa__wrapper {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity 0.8s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1)),
+        transform 0.8s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.pa__wrapper--in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── Eyebrow (centered) ──────────────────────────────────── */
+
+.pa__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.pa__eyebrow-rule {
+    display: block;
+    flex: 1;
+    max-width: 80px;
+    height: 0.5px;
+    background: rgba(209, 205, 198, 0.18);
+}
+
+.pa__eyebrow-text {
+    font-family: var(--font-ui);
+    font-size: 18px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(192, 0, 26, 0.7);
+    white-space: nowrap;
+}
+
+/* ─── Card ────────────────────────────────────────────────── */
+
+.pa__card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 540px 1fr;
+    gap: 0;
+    border: 0.5px solid rgba(209, 205, 198, 0.1);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* corner accents */
+.pa__card::before,
+.pa__card::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: rgba(192, 0, 26, 0.5);
+    border-style: solid;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.pa__card::before {
+    top: -0.5px;
+    left: -0.5px;
+    border-width: 1.5px 0 0 1.5px;
+}
+
+.pa__card::after {
+    bottom: -0.5px;
+    right: -0.5px;
+    border-width: 0 1.5px 1.5px 0;
+}
+
+/* ─── Circuit trace decoration ────────────────────────────── */
+
+.pa__circuit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ─── Photo block ─────────────────────────────────────────── */
+
+.pa__photo-block {
+    position: relative;
+    background: rgba(13, 13, 13, 0.6);
+    border-right: 0.5px solid rgba(209, 205, 198, 0.08);
+    padding: 0;
+    overflow: hidden;
+    min-height: 380px;
+}
+
+.pa__photo-duo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Main (large) photo — fills the block */
+.pa__photo-frame--main {
+    position: absolute;
+    inset: 0;
+}
+
+.pa__photo-frame--main .pa__photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: grayscale(50%);
+    transition: filter 0.5s ease, transform 0.6s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.pa__card:hover .pa__photo-frame--main .pa__photo-img {
+    filter: grayscale(0%);
+    transform: scale(1.04);
+}
+
+/* Sub photo — small inset bottom-right */
+.pa__photo-frame--sub {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 88px;
+    height: 88px;
+    border: 1.5px solid rgba(192, 0, 26, 0.7);
+    overflow: hidden;
+    z-index: 5;
+    transition: transform 0.4s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
+    display:  none;
+}
+
+.pa__card:hover .pa__photo-frame--sub {
+    transform: scale(1.05);
+}
+
+.pa__photo-frame--sub .pa__photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: grayscale(30%);
+    transition: filter 0.4s ease;
+}
+
+.pa__card:hover .pa__photo-frame--sub .pa__photo-img {
+    filter: grayscale(0%);
+}
+
+/* Corner marks on main photo */
+.pa__photo-corner {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    z-index: 6;
+}
+
+.pa__photo-corner--tl {
+    top: 14px;
+    left: 14px;
+    border-top: 1.5px solid rgba(192, 0, 26, 0.8);
+    border-left: 1.5px solid rgba(192, 0, 26, 0.8);
+}
+
+.pa__photo-corner--br {
+    bottom: 14px;
+    left: 14px;
+    border-bottom: 1.5px solid rgba(192, 0, 26, 0.3);
+    border-left: 1.5px solid rgba(192, 0, 26, 0.3);
+}
+
+/* Floating tech badge */
+.pa__tech-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(13, 13, 13, 0.85);
+    border: 0.5px solid rgba(192, 0, 26, 0.4);
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(192, 0, 26, 0.85);
+    z-index: 7;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* ─── Content ─────────────────────────────────────────────── */
+
+.pa__content {
+    padding: clamp(2rem, 3.5vw, 3rem) clamp(2rem, 3.5vw, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* ─── Name pair ───────────────────────────────────────────── */
+
+.pa__names {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.pa__name-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.pa__name {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: rgba(248, 247, 245, 0.92);
+    line-height: 1.2;
+}
+
+.pa__title-tag {
+    font-family: var(--font-ui);
+    font-size: 16px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(248, 247, 245, 0.32);
+    white-space: nowrap;
+    align-self: center;
+}
+
+/* ─── Divider ─────────────────────────────────────────────── */
+
+.pa__divider {
+    height: 0.5px;
+    background: rgba(209, 205, 198, 0.1);
+    margin-bottom: 24px;
+}
+
+/* ─── Statement ───────────────────────────────────────────── */
+
+.pa__statement {
+    font-family: var(--font-ui);
+    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+    line-height: 1.8;
+    color: rgba(248, 247, 245, 0.55);
+    margin-bottom: 28px;
+    max-width: 520px;
+}
+
+/* ─── Capabilities ────────────────────────────────────────── */
+
+.pa__caps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pa__cap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(248, 247, 245, 0.42);
+    font-weight: 700;
+}
+
+.pa__cap-dot {
+    width: 4px;
+    height: 4px;
+    background: rgba(192, 0, 26, 0.7);
+    flex-shrink: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.pa__cap:hover .pa__cap-dot {
+    background: var(--signal, #c0001a);
+    transform: scale(1.5);
+}
+
+.pa__cap:hover {
+    color: rgba(248, 247, 245, 0.75);
+}
+
+/* ─── CTA ─────────────────────────────────────────────────── */
+
+.pa__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 30px;
+    border: 0.5px solid rgba(192, 0, 26, 0.5);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(248, 247, 245, 0.75);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    width: fit-content;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.pa__cta-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--signal, #c0001a);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
+    z-index: 0;
+}
+
+.pa__cta:hover .pa__cta-fill {
+    transform: scaleX(1);
+}
+
+.pa__cta:hover {
+    color: var(--canvas, #f8f7f5);
+    border-color: var(--signal, #c0001a);
+}
+
+.pa__cta-label,
+.pa__cta svg {
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 1024px) {
+
+    .ts__header,
+    .ts__ops-header {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .ts__board-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .pa__card {
+        grid-template-columns: 500px 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .ts__board-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ts__board-photo {
+        height: 640px;
+    }
+
+    .pa__card {
+        grid-template-columns: 1fr;
+    }
+
+    .pa__photo-block {
+        height: 560px;
+        border-right: none;
+        border-bottom: 0.5px solid rgba(209, 205, 198, 0.08);
+    }
+
+    .pa__content {
+        padding: 2rem 1.75rem;
+    }
+
+    .pa__name-item {
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ts__board-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pa__photo-block {
+        min-height: 220px;
+    }
+
+    .pa__photo-frame--sub {
+        width: 68px;
+        height: 68px;
+    }
+
+    .pa__cta {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ============================================================
+   REDUCED MOTION
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ts__board-card,
+    .ts__header,
+    .ts__header-sub,
+    .pa__wrapper {
+        transition: opacity 0.1s ease;
+        transform: none !important;
+    }
+
+    .ts__board-accent-line,
+    .ts__board-photo-img,
+    .pa__photo-frame--main .pa__photo-img,
+    .pa__cta-fill {
+        transition: none;
+    }
+
+    .ts__board-overlay {
+        transition: opacity 0.1s ease;
+    }
+
+    .pa__circuit line:last-child {
+        animation: none;
+    }
+}

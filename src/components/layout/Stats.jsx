@@ -65,7 +65,7 @@ const STATS = [
         suffix: '',
         unit: 'CITIES',
         label: 'Active Markets',
-        sublabel: 'Lagos · Edo · Delta · Ibadan . Uyo . Ogun',
+        sublabel: 'Lagos|Edo|Delta|Ibadan|Uyo| Ogun',
     },
 ]
 
