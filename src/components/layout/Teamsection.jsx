@@ -86,7 +86,7 @@ export const PRIME_AXIS = [
         name: 'Arekhanose Onosereme',
         role: 'Backend Developer',
         roleShort: 'BACKEND',
-        avatar: ose, // no separate avatar provided; falls back to initials
+        avatar: ose, 
         quote: 'The best infrastructure is the kind no one notices.',
         bio: 'Co-lead at Prime Axis. Designs and maintains the server infrastructure, APIs, and data pipelines that power the entire EGPL digital ecosystem.',
         caps: ['Server Architecture', 'API & Database', 'Systems Engineering'],
