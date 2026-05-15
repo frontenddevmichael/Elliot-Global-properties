@@ -34,7 +34,7 @@ const STATS = [
     {
         coordinate: '6.5°N',
         prefix: '',
-        value: 50,
+        value: 500,
         suffix: '+',
         unit: '',
         label: 'Clients Served',
