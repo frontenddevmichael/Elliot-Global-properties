@@ -76,7 +76,6 @@ const SOCIALS = [
   },
 ]
 
-// ─── Animated large text ticker ───────────────────────────────────────────────
 function Marquee() {
   const text = 'ELLIOT GLOBAL · PROPERTY · ELEVATED · LAGOS · NIGERIA · EST 2022 · '
   return (
