@@ -4,6 +4,7 @@ import founderImg from "../../assets/FounderPicture.jpeg"
 import mdImg from "../../assets/MDimg.jpeg"
 import Michael from "../../assets/Michael.jpeg"
 import director from "../../assets/director.jpeg"
+import ose from "../../assets/Ose.jpeg"
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HOOK: useInView
@@ -59,13 +60,36 @@ export const BOARD = [
     },
     {
         id: 'b3',
-        name: 'Chukwuemeka Obi',
+        name: 'Joseph Ishola',
         role: 'Director of Operations',
         roleShort: 'DIRECTOR',
         avatar: director,
         quote: 'A well-run operation is invisible. Our clients only see results.',
         bio: 'Responsible for project delivery, legal documentation, and estate development oversight. Ensures every promise made to clients is a promise kept.',
         linkedin: '#',
+    },
+]
+
+export const PRIME_AXIS = [
+    {
+        id: 'pa1',
+        name: 'Omale Michael',
+        role: 'Frontend Developer',
+        roleShort: 'FRONTEND',
+        avatar: Michael,
+        quote: 'Every pixel is a decision. Make it count.',
+        bio: 'Tech Lead at Prime Axis. Architects and builds every client-facing interface for Elliot Global Properties — from design systems to responsive layouts.',
+        caps: ['UI/UX Design', 'React & Web Dev', 'Product Strategy'],
+    },
+    {
+        id: 'pa2',
+        name: 'Arekhanose Onosereme',
+        role: 'Backend Developer',
+        roleShort: 'BACKEND',
+        avatar: ose, // no separate avatar provided; falls back to initials
+        quote: 'The best infrastructure is the kind no one notices.',
+        bio: 'Co-lead at Prime Axis. Designs and maintains the server infrastructure, APIs, and data pipelines that power the entire EGPL digital ecosystem.',
+        caps: ['Server Architecture', 'API & Database', 'Systems Engineering'],
     },
 ]
 
@@ -84,11 +108,11 @@ function LinkedInIcon() {
     )
 }
 
-function ArrowIcon() {
+function ExternalIcon() {
     return (
-        <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
-            <path d="M0 5h14M10 1l4 4-4 4"
-                stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <path d="M5 2H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+            <path d="M8 1h4v4M12 1 7 6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     )
 }
@@ -105,19 +129,16 @@ function CornerFrame() {
     )
 }
 
-/* Decorative circuit-trace SVG for Prime Axis card */
+/* Decorative circuit-trace SVG for Prime Axis cards */
 function CircuitTrace() {
     return (
         <svg className="pa__circuit" viewBox="0 0 420 180" fill="none" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg">
-            {/* Horizontal spine */}
             <line x1="0" y1="90" x2="420" y2="90" stroke="rgba(192,0,26,0.12)" strokeWidth="0.5" />
-            {/* Vertical branches */}
             <line x1="80" y1="90" x2="80" y2="20" stroke="rgba(192,0,26,0.18)" strokeWidth="0.5" />
             <line x1="180" y1="90" x2="180" y2="160" stroke="rgba(192,0,26,0.18)" strokeWidth="0.5" />
             <line x1="290" y1="90" x2="290" y2="30" stroke="rgba(192,0,26,0.18)" strokeWidth="0.5" />
             <line x1="360" y1="90" x2="360" y2="150" stroke="rgba(192,0,26,0.18)" strokeWidth="0.5" />
-            {/* Nodes */}
             <circle cx="80" cy="20" r="3" fill="rgba(192,0,26,0.35)" />
             <circle cx="80" cy="90" r="2" fill="rgba(192,0,26,0.25)" />
             <circle cx="180" cy="160" r="3" fill="rgba(192,0,26,0.35)" />
@@ -126,11 +147,9 @@ function CircuitTrace() {
             <circle cx="290" cy="90" r="2" fill="rgba(192,0,26,0.25)" />
             <circle cx="360" cy="150" r="3" fill="rgba(192,0,26,0.35)" />
             <circle cx="360" cy="90" r="2" fill="rgba(192,0,26,0.25)" />
-            {/* Diagonal accents */}
             <line x1="80" y1="20" x2="110" y2="20" stroke="rgba(192,0,26,0.12)" strokeWidth="0.5" />
             <line x1="180" y1="160" x2="210" y2="160" stroke="rgba(192,0,26,0.12)" strokeWidth="0.5" />
             <line x1="270" y1="30" x2="290" y2="30" stroke="rgba(192,0,26,0.12)" strokeWidth="0.5" />
-            {/* Animated scan line */}
             <line x1="0" y1="90" x2="420" y2="90" stroke="rgba(192,0,26,0.4)" strokeWidth="1"
                 strokeDasharray="20 400">
                 <animate attributeName="stroke-dashoffset" from="420" to="-420" dur="3s" repeatCount="indefinite" />
@@ -150,33 +169,13 @@ function GridLattice() {
                 </pattern>
             </defs>
             <rect width="800" height="600" fill="url(#tsgrid)" />
-            {/* Accent diagonal */}
             <line x1="0" y1="600" x2="800" y2="0" stroke="rgba(192,0,26,0.04)" strokeWidth="1" />
         </svg>
     )
 }
 
-/* Slash mark — prime axis divider */
-function SlashMark() {
-    return (
-        <svg width="24" height="40" viewBox="0 0 24 40" fill="none" aria-hidden="true">
-            <line x1="18" y1="2" x2="6" y2="38" stroke="rgba(192,0,26,0.5)" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-    )
-}
-
-/* External link icon */
-function ExternalIcon() {
-    return (
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-            <path d="M5 2H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-            <path d="M8 1h4v4M12 1 7 6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-    )
-}
-
 // ─────────────────────────────────────────────────────────────────────────────
-// BOARD CARD — untouched logic, same markup
+// BOARD CARD
 // ─────────────────────────────────────────────────────────────────────────────
 
 function BoardCard({ member, index, visible }) {
@@ -188,7 +187,6 @@ function BoardCard({ member, index, visible }) {
             style={{ transitionDelay: visible ? `${index * 110}ms` : '0ms' }}
             aria-label={`${member.name}, ${member.role}`}
         >
-            {/* ── Photo area ──────────────────────────────────────── */}
             <div className="ts__board-photo">
                 {member.avatar && !imgErr
                     ? <img
@@ -201,10 +199,8 @@ function BoardCard({ member, index, visible }) {
                         {member.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase()}
                     </div>
                 }
-
                 <CornerFrame />
                 <div className="ts__board-badge">{member.roleShort}</div>
-
                 <div className="ts__board-overlay" aria-hidden="true">
                     <p className="ts__board-overlay-bio">{member.bio}</p>
                     {member.linkedin && member.linkedin !== '#' && (
@@ -233,10 +229,69 @@ function BoardCard({ member, index, visible }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PRIME AXIS CARD — dual-founder, shared photo, tech CTA
+// PRIME AXIS INDIVIDUAL CARD
 // ─────────────────────────────────────────────────────────────────────────────
 
-function PrimeAxisCard({ visible }) {
+function PrimeAxisMemberCard({ member, index, visible }) {
+    const [imgErr, setImgErr] = useState(false)
+
+    return (
+        <div
+            className={`pa__member-card ${visible ? 'pa__member-card--in' : ''}`}
+            style={{ transitionDelay: visible ? `${index * 150}ms` : '0ms' }}
+        >
+            {/* Circuit decoration */}
+            <CircuitTrace />
+
+            {/* corner accents via pseudo-elements in CSS */}
+
+            {/* ── Photo ─────────────────────────────────────────── */}
+            <div className="pa__member-photo">
+                {member.avatar && !imgErr
+                    ? <img
+                        src={member.avatar}
+                        alt={member.name}
+                        className="pa__member-photo-img"
+                        onError={() => setImgErr(true)}
+                    />
+                    : <div className="pa__member-photo-placeholder" aria-hidden="true">
+                        {member.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase()}
+                    </div>
+                }
+                <div className="pa__member-badge">{member.roleShort}</div>
+                <div className="pa__photo-corner pa__photo-corner--tl" aria-hidden="true" />
+                <div className="pa__photo-corner pa__photo-corner--br" aria-hidden="true" />
+            </div>
+
+            {/* ── Content ───────────────────────────────────────── */}
+            <div className="pa__member-content">
+                <h3 className="pa__member-name">{member.name}</h3>
+                <p className="pa__member-role">{member.role}</p>
+
+                <div className="pa__divider" aria-hidden="true" />
+
+                <blockquote className="pa__member-quote">"{member.quote}"</blockquote>
+
+                <p className="pa__member-bio">{member.bio}</p>
+
+                <ul className="pa__caps" aria-label={`${member.name} capabilities`}>
+                    {member.caps.map(cap => (
+                        <li key={cap} className="pa__cap">
+                            <span className="pa__cap-dot" aria-hidden="true" />
+                            {cap}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PRIME AXIS SECTION
+// ─────────────────────────────────────────────────────────────────────────────
+
+function PrimeAxisSection({ visible }) {
     return (
         <div className={`pa__wrapper ${visible ? 'pa__wrapper--in' : ''}`}>
 
@@ -247,90 +302,33 @@ function PrimeAxisCard({ visible }) {
                 <span className="pa__eyebrow-rule" aria-hidden="true" />
             </div>
 
-            {/* ── Card ──────────────────────────────────────────── */}
-            <div className="pa__card">
-
-                {/* Background circuit decoration */}
-                <CircuitTrace />
-
-                {/* ── Left: photo block ─────────────────────────── */}
-                <div className="pa__photo-block">
-                    <div className="pa__photo-duo">
-                        {/* Shared team photo */}
-                        <div className="pa__photo-frame pa__photo-frame--main">
-                            <img src={Michael} alt="Omale Michael & Arekhanose Onosereme — Prime Axis"
-                                className="pa__photo-img" />
-                            <div className="pa__photo-corner pa__photo-corner--tl" aria-hidden="true" />
-                            <div className="pa__photo-corner pa__photo-corner--br" aria-hidden="true" />
-                        </div>
-                    </div>
-
-                    {/* Floating tech badge */}
-                    <div className="pa__tech-badge">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                            <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1" />
-                            <circle cx="6" cy="6" r="2" fill="currentColor" />
-                        </svg>
-                        <span>Prime Axis</span>
-                    </div>
-                </div>
-
-                {/* ── Right: content ────────────────────────────── */}
-                <div className="pa__content">
-
-                    {/* Name pair */}
-                    <div className="pa__names">
-                        <div className="pa__name-item">
-                            <span className="pa__name">Omale Michael</span>
-                            <SlashMark />
-                            <span className="pa__title-tag">Frontend Dev · Tech Lead</span>
-                        </div>
-                        <div className="pa__name-item">
-                            <span className="pa__name">Arekhanose Onosereme</span>
-                            <SlashMark />
-                            <span className="pa__title-tag">Backend Dev · Co-lead</span>
-                        </div>
-                    </div>
-
-                    <div className="pa__divider" aria-hidden="true" />
-
-                    {/* Statement */}
-                    <p className="pa__statement">
-                        The full digital infrastructure of Elliot Global Properties — from this website
-                        to every client-facing interface — is engineered and maintained by Prime Axis.
-                    </p>
-
-                    {/* Capabilities */}
-                    <ul className="pa__caps" aria-label="Prime Axis capabilities">
-                        <li className="pa__cap">
-                            <span className="pa__cap-dot" aria-hidden="true" />
-                            Web Design & Development
-                        </li>
-                        <li className="pa__cap">
-                            <span className="pa__cap-dot" aria-hidden="true" />
-                            Full-Stack Engineering
-                        </li>
-                        <li className="pa__cap">
-                            <span className="pa__cap-dot" aria-hidden="true" />
-                            Product Strategy & UI/UX
-                        </li>
-                    </ul>
-
-                    {/* CTA */}
-                    <a
-                        href="https://primeaxis.pxxl.click/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="pa__cta"
-                        aria-label="Visit Prime Axis website"
-                    >
-                        <span className="pa__cta-fill" aria-hidden="true" />
-                        <span className="pa__cta-label">Visit Prime Axis</span>
-                        <ExternalIcon />
-                    </a>
-                </div>
-
+            {/* ── Two cards side by side ─────────────────────────── */}
+            <div className="pa__grid">
+                {PRIME_AXIS.map((member, i) => (
+                    <PrimeAxisMemberCard
+                        key={member.id}
+                        member={member}
+                        index={i}
+                        visible={visible}
+                    />
+                ))}
             </div>
+
+            {/* ── Shared CTA ────────────────────────────────────── */}
+            <div className="pa__cta-row">
+                <a
+                    href="https://primeaxis.pxxl.click/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pa__cta"
+                    aria-label="Visit Prime Axis website"
+                >
+                    <span className="pa__cta-fill" aria-hidden="true" />
+                    <span className="pa__cta-label">Visit Prime Axis</span>
+                    <ExternalIcon />
+                </a>
+            </div>
+
         </div>
     )
 }
@@ -346,7 +344,6 @@ export default function TeamSection() {
     return (
         <section className="ts" aria-label="Our team at Elliot Global Properties">
 
-            {/* Background lattice */}
             <GridLattice />
 
             {/* ══ BOARD OF DIRECTORS ══════════════════════════════════ */}
@@ -390,7 +387,7 @@ export default function TeamSection() {
             {/* ══ PRIME AXIS TECH PARTNERSHIP ═════════════════════════ */}
             <div className="ts__tech-section" ref={paRef}>
                 <div className="container">
-                    <PrimeAxisCard visible={paVisible} />
+                    <PrimeAxisSection visible={paVisible} />
                 </div>
             </div>
 

@@ -26,7 +26,6 @@ function useInView(threshold = 0.12, once = true) {
 }
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
-
 const PILLARS = [
     {
         number: '01',

@@ -11,7 +11,6 @@
     position: relative;
 }
 
-/* Background lattice SVG */
 .ts__bg-lattice {
     position: absolute;
     inset: 0;
@@ -120,7 +119,7 @@
 .ts__board-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+    gap: 1rem;
 }
 
 /* ─── Board card ─────────────────────────────────────────── */
@@ -208,7 +207,7 @@
     z-index: 3;
 }
 
-/* ── Bio overlay — simple opacity fade on hover ───────────── */
+/* ── Bio overlay ───────────────────────────────────────────── */
 
 .ts__board-overlay {
     position: absolute;
@@ -316,7 +315,6 @@
     overflow: hidden;
 }
 
-/* faint top border with signal flash */
 .ts__tech-section::before {
     content: '';
     position: absolute;
@@ -353,7 +351,7 @@
     align-items: center;
     gap: 18px;
     justify-content: center;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 .pa__eyebrow-rule {
@@ -373,128 +371,125 @@
     white-space: nowrap;
 }
 
-/* ─── Card ────────────────────────────────────────────────── */
+/* ─── Two-card grid ───────────────────────────────────────── */
 
-.pa__card {
-    position: relative;
+.pa__grid {
     display: grid;
-    grid-template-columns: 540px 1fr;
-    gap: 0;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 32px;
+}
+
+/* ─── Individual member card ──────────────────────────────── */
+
+.pa__member-card {
+    position: relative;
     border: 0.5px solid rgba(209, 205, 198, 0.1);
     overflow: hidden;
     background: rgba(255, 255, 255, 0.025);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity 0.65s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1)),
+        transform 0.65s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1)),
+        box-shadow 0.3s ease;
+}
+
+.pa__member-card--in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pa__member-card:hover {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 /* corner accents */
-.pa__card::before,
-.pa__card::after {
+.pa__member-card::before,
+.pa__member-card::after {
     content: '';
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-color: rgba(192, 0, 26, 0.5);
     border-style: solid;
     z-index: 10;
     pointer-events: none;
 }
 
-.pa__card::before {
+.pa__member-card::before {
     top: -0.5px;
     left: -0.5px;
     border-width: 1.5px 0 0 1.5px;
 }
 
-.pa__card::after {
+.pa__member-card::after {
     bottom: -0.5px;
     right: -0.5px;
     border-width: 0 1.5px 1.5px 0;
 }
 
-/* ─── Circuit trace decoration ────────────────────────────── */
+/* ── Photo ────────────────────────────────────────────────── */
 
-.pa__circuit {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 180px;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* ─── Photo block ─────────────────────────────────────────── */
-
-.pa__photo-block {
+.pa__member-photo {
     position: relative;
-    background: rgba(13, 13, 13, 0.6);
-    border-right: 0.5px solid rgba(209, 205, 198, 0.08);
-    padding: 0;
+    height: 460px;
+    background: rgba(13, 13, 13, 0.8);
     overflow: hidden;
-    min-height: 380px;
+    flex-shrink: 0;
+    ;
 }
 
-.pa__photo-duo {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-/* Main (large) photo — fills the block */
-.pa__photo-frame--main {
-    position: absolute;
-    inset: 0;
-}
-
-.pa__photo-frame--main .pa__photo-img {
+.pa__member-photo-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top center;
     display: block;
     filter: grayscale(50%);
-    transition: filter 0.5s ease, transform 0.6s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
+    transition:
+        filter 0.5s ease,
+        transform 0.6s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
-.pa__card:hover .pa__photo-frame--main .pa__photo-img {
+.pa__member-card:hover .pa__member-photo-img {
     filter: grayscale(0%);
     transform: scale(1.04);
 }
 
-/* Sub photo — small inset bottom-right */
-.pa__photo-frame--sub {
+.pa__member-photo-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 5rem;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: rgba(209, 205, 198, 0.12);
+    background: rgba(13, 13, 13, 0.6);
+}
+
+.pa__member-badge {
     position: absolute;
     bottom: 16px;
-    right: 16px;
-    width: 88px;
-    height: 88px;
-    border: 1.5px solid rgba(192, 0, 26, 0.7);
-    overflow: hidden;
-    z-index: 5;
-    transition: transform 0.4s var(--ease-premium, cubic-bezier(0.16, 1, 0.3, 1));
-    display:  none;
+    left: 16px;
+    background: var(--signal, #c0001a);
+    padding: 5px 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #f8f7f5;
+    z-index: 3;
 }
 
-.pa__card:hover .pa__photo-frame--sub {
-    transform: scale(1.05);
-}
-
-.pa__photo-frame--sub .pa__photo-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-    display: block;
-    filter: grayscale(30%);
-    transition: filter 0.4s ease;
-}
-
-.pa__card:hover .pa__photo-frame--sub .pa__photo-img {
-    filter: grayscale(0%);
-}
-
-/* Corner marks on main photo */
+/* Corner marks on photo */
 .pa__photo-corner {
     position: absolute;
     width: 16px;
@@ -517,72 +512,65 @@
     border-left: 1.5px solid rgba(192, 0, 26, 0.3);
 }
 
-/* Floating tech badge */
-.pa__tech-badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    background: rgba(13, 13, 13, 0.85);
-    border: 0.5px solid rgba(192, 0, 26, 0.4);
-    padding: 6px 12px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(192, 0, 26, 0.85);
-    z-index: 7;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
+/* ── Content ──────────────────────────────────────────────── */
 
-/* ─── Content ─────────────────────────────────────────────── */
-
-.pa__content {
-    padding: clamp(2rem, 3.5vw, 3rem) clamp(2rem, 3.5vw, 3.5rem);
+.pa__member-content {
+    padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1.5rem, 2.5vw, 2rem);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 0;
+    flex: 1;
     position: relative;
     z-index: 2;
 }
 
-/* ─── Name pair ───────────────────────────────────────────── */
-
-.pa__names {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 28px;
-}
-
-.pa__name-item {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-wrap: wrap;
-}
-
-.pa__name {
+.pa__member-name {
     font-family: var(--font-display);
-    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
     font-weight: 400;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     color: rgba(248, 247, 245, 0.92);
     line-height: 1.2;
+    margin-bottom: 6px;
 }
 
-.pa__title-tag {
-    font-family: var(--font-ui);
-    font-size: 16px;
-    letter-spacing: 0.14em;
+.pa__member-role {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(248, 247, 245, 0.32);
-    white-space: nowrap;
-    align-self: center;
+    color: rgba(192, 0, 26, 0.7);
+    margin-bottom: 0;
+}
+
+.pa__member-quote {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: rgba(248, 247, 245, 0.45);
+    padding-left: 14px;
+    border-left: 1.5px solid rgba(192, 0, 26, 0.3);
+    margin: 0 0 20px;
+}
+
+.pa__member-bio {
+    font-family: var(--font-ui);
+    font-size: clamp(0.88rem, 1.2vw, 0.95rem);
+    line-height: 1.8;
+    color: rgba(248, 247, 245, 0.5);
+    margin-bottom: 24px;
+}
+
+/* ─── Circuit trace decoration ────────────────────────────── */
+
+.pa__circuit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* ─── Divider ─────────────────────────────────────────────── */
@@ -590,18 +578,7 @@
 .pa__divider {
     height: 0.5px;
     background: rgba(209, 205, 198, 0.1);
-    margin-bottom: 24px;
-}
-
-/* ─── Statement ───────────────────────────────────────────── */
-
-.pa__statement {
-    font-family: var(--font-ui);
-    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
-    line-height: 1.8;
-    color: rgba(248, 247, 245, 0.55);
-    margin-bottom: 28px;
-    max-width: 520px;
+    margin: 16px 0 20px;
 }
 
 /* ─── Capabilities ────────────────────────────────────────── */
@@ -609,10 +586,11 @@
 .pa__caps {
     list-style: none;
     padding: 0;
-    margin: 0 0 32px;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: auto;
 }
 
 .pa__cap {
@@ -620,11 +598,12 @@
     align-items: center;
     gap: 12px;
     font-family: var(--font-mono);
-    font-size: 16px;
+    font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(248, 247, 245, 0.42);
+    color: rgba(248, 247, 245, 0.38);
     font-weight: 700;
+    transition: color 0.2s ease;
 }
 
 .pa__cap-dot {
@@ -644,13 +623,20 @@
     color: rgba(248, 247, 245, 0.75);
 }
 
+/* ─── Shared CTA row ──────────────────────────────────────── */
+
+.pa__cta-row {
+    display: flex;
+    justify-content: center;
+}
+
 /* ─── CTA ─────────────────────────────────────────────────── */
 
 .pa__cta {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    padding: 14px 30px;
+    padding: 14px 40px;
     border: 0.5px solid rgba(192, 0, 26, 0.5);
     font-family: var(--font-ui);
     font-size: 14px;
@@ -705,8 +691,8 @@
         grid-template-columns: repeat(3, 1fr);
     }
 
-    .pa__card {
-        grid-template-columns: 500px 1fr;
+    .pa__grid {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -719,23 +705,15 @@
         height: 640px;
     }
 
-    .pa__card {
+    .pa__grid {
         grid-template-columns: 1fr;
     }
 
-    .pa__photo-block {
-        height: 560px;
-        border-right: none;
-        border-bottom: 0.5px solid rgba(209, 205, 198, 0.08);
+    .pa__member-photo {
+        height:700px;
     }
 
-    .pa__content {
-        padding: 2rem 1.75rem;
-    }
 
-    .pa__name-item {
-        gap: 6px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -743,13 +721,8 @@
         grid-template-columns: 1fr;
     }
 
-    .pa__photo-block {
-        min-height: 220px;
-    }
-
-    .pa__photo-frame--sub {
-        width: 68px;
-        height: 68px;
+    .pa__member-photo {
+        height: 520px;
     }
 
     .pa__cta {
@@ -767,14 +740,15 @@
     .ts__board-card,
     .ts__header,
     .ts__header-sub,
-    .pa__wrapper {
+    .pa__wrapper,
+    .pa__member-card {
         transition: opacity 0.1s ease;
         transform: none !important;
     }
 
     .ts__board-accent-line,
     .ts__board-photo-img,
-    .pa__photo-frame--main .pa__photo-img,
+    .pa__member-photo-img,
     .pa__cta-fill {
         transition: none;
     }
