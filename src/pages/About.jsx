@@ -247,9 +247,9 @@ function MissionStatement() {
                     <div className="ap-mission__text">
                         <span className="ap-mission__eyebrow">Our Mission</span>
                         <blockquote className="ap-mission__quote">
-                            To create flexible access to quality property ownership —
+                            To create flexible access to quality property ownership 
                             for low income earners, middle income earners, and high income
-                            earners alike — because where you live should not be determined
+                            earners alike because where you live should not be determined
                             solely by what you earn.
                         </blockquote>
                         <p className="ap-mission__attribution">
