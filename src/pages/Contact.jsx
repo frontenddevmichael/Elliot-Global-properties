@@ -392,7 +392,7 @@ ${message}
                     <div className="contact__hero-coord" aria-hidden="true">
                         <span className="contact__coord-label">OFFICE LOCATION</span>
                         <span className="contact__coord-value">6.5244°N · 3.3792°E</span>
-                        <span className="contact__coord-city">Victoria Island, Lagos</span>
+                        <span className="contact__coord-city"> Lagos</span>
                     </div>
                 </div>
 
@@ -455,7 +455,7 @@ ${message}
                     <InfoItem
                         visible={infoVisible} delay={300}
                         label="Address"
-                        value="Victoria Island, Lagos"
+                        value=" Lagos"
                         icon={
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
@@ -617,7 +617,7 @@ ${message}
                                 <div className="contact__map-card-dot" />
                                 <div>
                                     <p className="contact__map-card-name">Elliot Global Properties</p>
-                                    <p className="contact__map-card-addr">Victoria Island, Lagos, Nigeria</p>
+                                    <p className="contact__map-card-addr"> Lagos, Nigeria</p>
                                     <p className="contact__map-card-coord">6.5244°N · 3.3792°E</p>
                                 </div>
                             </div>
