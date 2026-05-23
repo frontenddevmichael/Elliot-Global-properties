@@ -278,12 +278,34 @@ export default function Contact() {
         return () => window.removeEventListener('mousemove', onMove)
     }, [])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        setSending(true)
-        // Replace with real form submission
-        await new Promise(r => setTimeout(r, 1600))
-        setSending(false)
+
+        const formData = new FormData(e.target)
+
+        const name = formData.get('name')
+        const phone = formData.get('phone')
+        const email = formData.get('email')
+        const interest = formData.get('interest')
+        const message = formData.get('message')
+
+        const text = `
+New Client Enquiry
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email}
+Interest: ${interest}
+
+Message:
+${message}
+    `
+
+        const whatsappURL =
+            `https://wa.me/2349061712509?text=${encodeURIComponent(text)}`
+
+        window.open(whatsappURL, '_blank')
+        formData.forEach((_, key) => e.target.elements[key].value = '')
         setSubmitted(true)
     }
 
