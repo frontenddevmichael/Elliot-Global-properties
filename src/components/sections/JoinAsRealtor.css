@@ -1,0 +1,647 @@
+/* ============================================================
+   ELLIOT GLOBAL PROPERTIES — JOIN AS REALTOR
+   JoinAsRealtor.css
+   ============================================================ */
+
+/* ─── Shared reveal ──────────────────────────────────────────────────────── */
+.jar--in {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* ─── Section shell ──────────────────────────────────────────────────────── */
+.jar {
+    position: relative;
+    background-color: var(--signal-muted);
+    overflow: hidden;
+    isolation: isolate;
+    padding: 3rem;
+}
+
+/* ─── Background layers ──────────────────────────────────────────────────── */
+.jar__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.jar__topo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.jar__grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+}
+
+/* Giant faint watermark */
+.jar__watermark {
+    position: absolute;
+    bottom: -0.1em;
+    right: -0.04em;
+    font-family: var(--font-display);
+    font-size: clamp(8rem, 22vw, 20rem);
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    color: rgba(255, 255, 255, 0.055);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+}
+
+/* ─── Main inner layout ──────────────────────────────────────────────────── */
+.jar__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(48px, 8vw, 108px);
+    align-items: center;
+    padding-block: clamp(80px, 12vw, 132px);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LEFT — COPY
+══════════════════════════════════════════════════════════════ */
+
+.jar__copy {}
+
+/* Live badge */
+.jar__live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 7px 14px;
+    margin-bottom: clamp(20px, 3vw, 32px);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.6s var(--ease-premium),
+        transform 0.6s var(--ease-premium);
+}
+
+/* Pulse dot */
+.jar__pulse-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+}
+
+.jar__pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #25D366;
+    /* WhatsApp green — intentional, signals live */
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.jar__pulse-ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(37, 211, 102, 0.5);
+    animation: jarPulse 2s ease-out infinite;
+}
+
+@keyframes jarPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    70% {
+        transform: scale(1.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1.9);
+        opacity: 0;
+    }
+}
+
+/* Headline */
+.jar__headline {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    font-weight: 300;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: clamp(18px, 2.5vw, 28px);
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.8s var(--ease-premium),
+        transform 0.8s var(--ease-premium);
+}
+
+.jar__headline em {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* Body text */
+.jar__body {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+    line-height: var(--leading-relaxed);
+    color: rgba(255, 255, 255, 0.52);
+    max-width: 460px;
+    margin-bottom: clamp(24px, 3.5vw, 36px);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.75s var(--ease-premium),
+        transform 0.75s var(--ease-premium);
+}
+
+/* Benefits list */
+.jar__benefits {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s var(--ease-premium),
+        transform 0.7s var(--ease-premium);
+}
+
+.jar__benefit {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-ui);
+    font-size: clamp(14px, 1.2vw, 15px);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.01em;
+}
+
+.jar__benefit-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+}
+
+.jar__benefit:hover .jar__benefit-dot {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.jar__benefit:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RIGHT — CTA CARD
+══════════════════════════════════════════════════════════════ */
+
+.jar__card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.85s var(--ease-premium),
+        transform 0.85s var(--ease-premium);
+}
+
+/* Top accent — white instead of red (on red bg) */
+.jar__card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0.7),
+            rgba(255, 255, 255, 0.1));
+}
+
+.jar__card-inner {
+    padding: clamp(28px, 4vw, 48px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vw, 28px);
+}
+
+/* ─── Member avatar stack ────────────────────────────────────────────────── */
+.jar__social-proof {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.jar__avatars {
+    display: flex;
+    align-items: center;
+}
+
+.jar__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.08) 100%);
+    border: 2px solid rgba(192, 0, 26, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.04em;
+    margin-left: -10px;
+    transition: transform 0.2s var(--ease-spring);
+}
+
+.jar__avatar:first-child {
+    margin-left: 0;
+}
+
+.jar__avatar:hover {
+    transform: translateY(-3px) scale(1.08);
+}
+
+.jar__avatar--plus {
+    background: var(--signal);
+    border-color: rgba(255, 255, 255, 0.3);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.jar__proof-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.jar__proof-count {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.01em;
+}
+
+.jar__proof-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* ─── Card copy ──────────────────────────────────────────────────────────── */
+.jar__card-copy {}
+
+.jar__card-eyebrow {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 10px;
+}
+
+.jar__card-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 10px;
+}
+
+.jar__card-sub {
+    font-family: var(--font-body);
+    font-size: clamp(0.88rem, 1.1vw, 0.95rem);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ─── WhatsApp CTA button ────────────────────────────────────────────────── */
+.jar__cta-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 18px 24px;
+    background: #25D366;
+    /* WhatsApp green */
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+    transition: color 0.25s ease, transform 0.2s var(--ease-spring);
+}
+
+/* Fill wipe — darker green on hover */
+.jar__cta-fill {
+    position: absolute;
+    inset: 0;
+    background: #1ebe5d;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-premium);
+    z-index: -1;
+}
+
+.jar__cta-btn:hover .jar__cta-fill {
+    transform: scaleX(1);
+}
+
+.jar__cta-btn:hover {
+    transform: translateY(-1px);
+}
+
+.jar__cta-btn:active {
+    transform: translateY(0);
+}
+
+/* Clicked / loading state */
+.jar__cta-btn--clicked {
+    background: #1a9e4f;
+    cursor: wait;
+}
+
+.jar__cta-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    /* Slight bounce on the icon */
+    animation: waBounce 2.5s ease-in-out infinite;
+}
+
+@keyframes waBounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+.jar__cta-text {
+    flex: 1;
+    text-align: left;
+}
+
+.jar__cta-arrow {
+    flex-shrink: 0;
+    transition: transform 0.3s var(--ease-premium);
+}
+
+.jar__cta-btn:hover .jar__cta-arrow {
+    transform: translateX(5px);
+}
+
+/* ─── Reassurance note ───────────────────────────────────────────────────── */
+.jar__note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.28);
+}
+
+/* ─── Coordinate corner tag ──────────────────────────────────────────────── */
+.jar__card-coord {
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BOTTOM STRIP — secondary contact
+══════════════════════════════════════════════════════════════ */
+.jar__footer-strip {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-block: clamp(18px, 2.5vh, 26px);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.65s var(--ease-premium),
+        transform 0.65s var(--ease-premium);
+}
+
+.jar__footer-inner {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 3vw, 32px);
+    flex-wrap: wrap;
+}
+
+.jar__footer-text {
+    font-family: var(--font-body);
+    font-size: clamp(13px, 1.2vw, 15px);
+    color: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+}
+
+.jar__footer-links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.jar__footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: color 0.22s ease;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.jar__footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-premium);
+}
+
+.jar__footer-link:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.jar__footer-link:hover::after {
+    transform: scaleX(1);
+}
+
+.jar__footer-sep {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 12px;
+}
+
+/* ─── TABLET 641–1024px ──────────────────────────────────────────────────── */
+@media (max-width: 1024px) and (min-width: 641px) {
+    .jar__inner {
+        grid-template-columns: 1fr;
+        gap: clamp(44px, 7vw, 64px);
+    }
+
+    .jar__headline {
+        font-size: clamp(2.2rem, 6vw, 3.4rem);
+    }
+
+    .jar__body {
+        max-width: 100%;
+    }
+
+    .jar__card {
+        max-width: 540px;
+    }
+
+    .jar__watermark {
+        font-size: clamp(6rem, 18vw, 14rem);
+    }
+}
+
+/* ─── MOBILE ≤640px ──────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .jar__inner {
+        grid-template-columns: 1fr;
+        gap: clamp(36px, 8vw, 52px);
+        padding-block: clamp(60px, 11vw, 88px);
+    }
+
+    .jar__headline {
+        font-size: clamp(2.2rem, 9.5vw, 3.2rem);
+    }
+
+    .jar__body {
+        font-size: 0.97rem;
+        max-width: 100%;
+    }
+
+    .jar__benefits {
+        gap: 10px;
+    }
+
+    .jar__benefit {
+        font-size: 14px;
+    }
+
+    .jar__card-title {
+        font-size: clamp(1.2rem, 5.5vw, 1.55rem);
+    }
+
+    .jar__cta-btn {
+        font-size: 13px;
+        padding: 16px 20px;
+        gap: 12px;
+    }
+
+    .jar__watermark {
+        display: none;
+    }
+
+    .jar__footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+/* ─── Very small phones ──────────────────────────────────────────────────── */
+@media (max-width: 375px) {
+    .jar__headline {
+        font-size: 2rem;
+    }
+
+    .jar__avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 8px;
+    }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+    .jar--in,
+    .jar__live-badge,
+    .jar__headline,
+    .jar__body,
+    .jar__benefits,
+    .jar__card,
+    .jar__footer-strip {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .jar__pulse-ring {
+        animation: none;
+        opacity: 0.5;
+    }
+
+    .jar__cta-icon {
+        animation: none;
+    }
+
+    .jar__cta-btn {
+        transition: background 0.2s ease;
+    }
+}
